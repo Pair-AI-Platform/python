@@ -1,6 +1,5 @@
 name: Release
 
-# Scheduled and continuous delivery workflow.
 # Rebuilds every image every two hours (Wolfi publishes fixes continuously) and on every change to main, and
 # publishes the images whose content changed (see build.yml). Each published image gets a GitHub
 # release with its changelog and scan results, and its status (STIG score, vulnerabilities, latest
@@ -21,77 +20,135 @@ on:
       - '.github/workflows/build.yml'
       - '.github/workflows/release.yml'
   workflow_dispatch:
-    inputs:
-      force_publish:
-        description: 'Publish even when the image content is unchanged'
-        type: boolean
-        default: false
 
+# Releases run one after another, never in parallel or cancelled half-way
 concurrency:
-  group: release
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   build:
-    name: build and test
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
     uses: ./.github/workflows/build.yml
-    secrets: inherit
     with:
       publish: true
-      site: true
+    secrets: inherit
 
-  # Assembles GitHub Pages from the records uploaded by the publish job
-  pages:
-    name: pages
+  # Runs even when some images failed to publish, so the ones that did are released. Only records
+  # whose release tag exists on the recorded digest are released; a re-run of the failed jobs
+  # finishes the rest.
+  release:
     needs: build
-    runs-on: ubuntu-latest
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     permissions:
       contents: write
+      packages: read
     steps:
-      - name: Checkout gh-pages
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: site
-
-      - name: Checkout main (for the release script)
+      - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          path: repo
           persist-credentials: false
 
-      - name: Download Records
+      - name: Download Release Records
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        continue-on-error: true
         with:
-          pattern: record-*
+          pattern: release-*
           path: records
 
-      - name: Update Pages
+      # Unchanged images: today's status only (no release, no archive)
+      - name: Download Status Records
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: status-*
+          path: records
+
+      - name: Install oras
+        uses: oras-project/setup-oras@5e2f2482b30b0cb3e14e67f89a80c88c659a7c63 # v2.0.3
+        with:
+          version: 1.3.6
+
+      # A record is released only if its tag was created on its digest (tags are the last step)
+      - name: Published Images
+        id: any
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$GH_TOKEN" | oras login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          for dir in records/release-*; do
+            [ -f "$dir/record.json" ] || continue
+            ref="$(jq -r '"\(.image):\(.release)"' "$dir/record.json")"
+            want="$(jq -r .digest "$dir/record.json")"
+            if [ "$(oras resolve "$ref" 2>/dev/null || true)" != "$want" ]; then
+              echo "::warning::$ref is not tagged on $want; not releasing it"
+              rm -rf "$dir"
+            fi
+          done
+          if compgen -G "records/release-*/record.json" >/dev/null; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::No image changed; nothing to release"
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A release creates a git tag on the commit the images were built from. When main has moved
+      # on and its workflow files differ from that commit, GitHub treats the new tag as a workflow
+      # change, which GITHUB_TOKEN may never make. The repository's GitHub App can.
+      - name: App Token
+        id: app-token
+        if: steps.any.outputs.published == 'true'
+        continue-on-error: true
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.RENOVATE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-workflows: write
+
+      - name: GitHub Releases
+        if: steps.any.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
+        run: |
+          for dir in records/release-*; do
+            tag="$(jq -r .release "$dir/record.json")"
+            python3 scripts/release.py notes "$dir/record.json" > "$dir/notes.md"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "::notice::GitHub release $tag already exists"
+              continue
+            fi
+            gh release create "$tag" --target "$GITHUB_SHA" --title "$tag" \
+              --notes-file "$dir/notes.md" \
+              "$dir/record.json" "$dir/stig-x86_64.html" "$dir/stig-aarch64.html" \
+              "$dir/sbom-x86_64.spdx.json" "$dir/sbom-aarch64.spdx.json"
+          done
+
+      # The README badges and the image pages read these files. Published images get their page and
+      # an archive entry; unchanged images get their status refreshed with today's scan.
+      - name: Status Pages
         id: pages
         run: |
           mkdir -p site
-          if [ -d records ] && [ "$(ls -A records)" ]; then
-            for r in records/*; do
-              echo "updating site from $r"
-              python3 repo/scripts/release.py pages "$r" site
-            done
-            echo "updated=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "no new image was released; badges stay as they were"
-            echo "updated=false" >> "$GITHUB_OUTPUT"
-          fi
+          for dir in records/release-*; do
+            [ -f "$dir/record.json" ] && python3 scripts/release.py pages "$dir" site
+          done
+          for dir in records/status-*; do
+            [ -f "$dir/record.json" ] && python3 scripts/release.py pages "$dir" site --no-archive
+          done
+          if [ -n "$(ls -A site)" ]; then echo "any=true" >> "$GITHUB_OUTPUT"; fi
 
-      - name: Publish to GitHub Pages
-        if: steps.pages.outputs.updated == 'true'
-        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+      - name: Publish Status Pages
+        if: steps.pages.outputs.any == 'true'
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: ./site
           keep_files: true
 
@@ -100,17 +157,22 @@ jobs:
   # keeps its platform manifests, signatures and attestations; untagged leftovers of failed runs are
   # deleted. The GitHub releases of each family follow the same rule. Never fails the release.
   cleanup:
-    name: cleanup (${{ matrix.image.family }})
-    needs: [build, pages]
-    runs-on: ubuntu-latest
+    needs: [build, release]
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    continue-on-error: true
+    permissions:
+      contents: write
+      packages: write
     strategy:
-      fail-fast: false
+      max-parallel: 1
       matrix:
-        image: ${{ fromJson(needs.build.outputs.images || '[]') }}
+        image: ${{ fromJSON(needs.build.outputs.images) }}
     env:
       FAMILY: ${{ matrix.image.family }}
     steps:
-      - name: Tag Regex
+      - name: Release Tag Pattern
         id: pattern
         run: |
           major="${FAMILY%%-*}"
@@ -130,21 +192,21 @@ jobs:
           delete-untagged: true
           delete-orphaned-images: true
           delete-partial-images: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
+          validate: true
 
-      - name: Generate App Token for Releases
+      - name: App Token
         id: app-token
-        uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
+        continue-on-error: true
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          app-id: ${{ vars.RENOVATE_APP_CLIENT_ID }}
+          client-id: ${{ vars.RENOVATE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-workflows: write
 
       - name: Keep the Five Newest GitHub Releases
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           REGEX: ${{ steps.pattern.outputs.regex }}
         run: |
@@ -154,4 +216,3 @@ jobs:
             echo "deleting release and tag $tag"
             gh release delete "$tag" --yes --cleanup-tag
           done
-        continue-on-error: true

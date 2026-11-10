@@ -315,3 +315,4 @@ if __name__ == "__main__":
         pages(sys.argv[2], sys.argv[3], archive_release="--no-archive" not in sys.argv[4:])
     else:
         sys.exit(f"unknown command {command}")
+

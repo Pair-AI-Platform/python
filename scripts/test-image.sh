@@ -72,3 +72,4 @@ if [ "$failed" -ne 0 ]; then
   exit 1
 fi
 echo "all image checks passed"
+

@@ -63,3 +63,4 @@ jobs:
           # The only command a pull request may run: refreshing the Python release keys
           RENOVATE_ALLOWED_COMMANDS: '["^bash scripts/update-python-release-keys\\.sh$"]'
           LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
+

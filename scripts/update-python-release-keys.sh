@@ -23,3 +23,4 @@ for recipe_dir in "$ROOT_DIR"/melange/python-*-upstream; do
     echo "Refreshed keyring at $keyring"
   fi
 done
+

@@ -42,3 +42,4 @@ for config in sorted(pathlib.Path("apko").glob("python-*.apko.yaml")):
         "local": any(re.search(rf"^\s+- {re.escape(p)}(=|$)", config.read_text(), re.M) for p in local_packages),
     })
 print(json.dumps(entries))
+

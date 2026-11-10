@@ -21,3 +21,4 @@
   applied per application and contract from https://github.com/Pair-AI-Platform/khatm.
 - If a Python line leaves public Wolfi, create or activate its `melange/python-<version>-upstream.yaml`
   recipe and update the image definition to reference the upstream package.
+
