@@ -6,6 +6,12 @@ name: renovate
 on:
   schedule:
     - cron: '13 * * * *'
+  workflow_run:
+    workflows: [PR]
+    types: [completed]
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       logLevel:

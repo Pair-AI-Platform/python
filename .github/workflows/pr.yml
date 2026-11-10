@@ -7,26 +7,25 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'apko/**'
-      - 'melange/**'
-      - 'keys/**'
-      - 'scripts/**'
-      - '.github/workflows/build.yml'
-      - '.github/workflows/pr.yml'
 
 concurrency:
-  group: pr-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
+  # build.yml also holds the publish job, and GitHub refuses to start a called workflow whose jobs
+  # declare more permissions than the caller grants, even for jobs that are skipped. publish: false
+  # skips that job, so nothing here is pushed, signed or attested.
   build:
-    name: build
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
     uses: ./.github/workflows/build.yml
-    secrets: inherit
     with:
       publish: false
+    secrets: inherit
 
