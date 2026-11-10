@@ -52,13 +52,28 @@ Each Melange recipe (e.g. [`melange/python-3.10-upstream.yaml`](../melange/pytho
 
 | What | Renovate datasource | Rule |
 | :--- | :--- | :--- |
-| Python 3.13 | `python-version` / `github-releases` | Newest `3.13.x` release from python.org; automerged once images build, test and scan |
-| Python 3.12 | `python-version` / `github-releases` | Newest `3.12.x` release from python.org; automerged once images build, test and scan |
-| Python 3.11 | `python-version` / `github-releases` | Newest `3.11.x` release from python.org; automerged once images build, test and scan |
-| Python 3.10 | `python-version` / `github-releases` | Newest `3.10.x` release from python.org; automerged once images build, test and scan |
+| Python 3.13 | `python-version` / `github-tags` | Newest `3.13.x` release from python.org; automerged once images build, test and scan |
+| Python 3.12 | `python-version` / `github-tags` | Newest `3.12.x` release from python.org; automerged once images build, test and scan |
+| Python 3.11 | `python-version` / `github-tags` | Newest `3.11.x` release from python.org; automerged once images build, test and scan |
+| Python 3.10 | `python-version` / `github-tags` | Newest `3.10.x` release from python.org; automerged once images build, test and scan |
+| Wolfi packages (when pinned) | `apk` (`packages.wolfi.dev/os`) | Upstream APK updates from Wolfi OS; automerged once images build, test and scan |
 | Release keys | `scripts/update-python-release-keys.sh` | Refreshes release manager keyring if signing keys or subkeys rotate |
 
 When python.org issues a new release (including critical CVE fixes), Renovate opens a pull request. Once all CI checks pass (Melange compilation, image integration tests, OpenSCAP STIG audit, Grype vulnerability scan), the pull request is squashed and merged automatically, triggering release publication to GHCR with Sigstore signatures and SLSA L3 provenance.
+
+---
+
+## How Wolfi OS packages update
+
+Wolfi OS is a rolling distribution that publishes package security fixes continuously (often multiple times per day). Wolfi package updates are handled through two complementary mechanisms:
+
+1. **Continuous Rolling Rebuilds (Automated Watcher):**
+   - In `apko/*.apko.yaml`, Wolfi packages (`wolfi-baselayout`, `ca-certificates-bundle`, `python-3.12`, `py3-pip`, `busybox`, `bash`) are unpinned by design.
+   - `.github/workflows/wolfi-watch.yml` runs hourly, executing `scripts/wolfi-state.sh` which checks the live Wolfi repository index (`APKINDEX.tar.gz`) via `apko lock`.
+   - The moment Wolfi publishes any update, `release.yml` triggers automatically, rebuilds the images, verifies that all integration tests and security scans pass, and publishes the new image version if its digest changed.
+
+2. **Renovate APK Datasource (Pinned Package Support):**
+   - For environments or dependencies requiring explicit version pinning in `apko/` or `melange/` (e.g., `# renovate: datasource=apk depName=python-3.12`), Renovate's native `apk` datasource queries `https://packages.wolfi.dev/os?arch=x86_64` directly and opens pull requests with changelogs.
 
 ---
 

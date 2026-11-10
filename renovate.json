@@ -53,14 +53,29 @@
     },
     {
       "customType": "regex",
-      "description": "Package versions in the melange recipes, annotated with a '# renovate:' comment (Python upstream from python.org)",
+      "description": "Package versions in the melange recipes, annotated with a '# renovate:' comment (Python from python.org or cpython)",
       "fileMatch": [
         "^melange/[^/]+\\.yaml$"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\n\\s+version: \"?(?<currentValue>[^\"\\s]+)\"?"
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?(?: extractVersion=(?<extractVersion>\\S+))?\\n\\s+version: \"?(?<currentValue>[^\"\\s]+)\"?"
       ],
-      "versioningTemplate": "{{{versioning}}}"
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}python{{/if}}",
+      "extractVersionTemplate": "{{{extractVersion}}}"
+    },
+    {
+      "customType": "regex",
+      "description": "Wolfi packages pinned in apko or melange configs, annotated with '# renovate: datasource=apk'",
+      "fileMatch": [
+        "^apko/[^/]+\\.apko\\.yaml$",
+        "^melange/[^/]+\\.yaml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=apk(?: depName=(?<depName>\\S+))?(?: registryUrl=(?<registryUrl>\\S+))?\\n\\s+-\\s+(?:[\\w.-]+:)?(?<depNameCopy>[\\w.-]+)=(?<currentValue>[^\"'\\s]+)"
+      ],
+      "datasourceTemplate": "apk",
+      "depNameTemplate": "{{#if depName}}{{{depName}}}{{else}}{{{depNameCopy}}}{{/if}}",
+      "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}https://packages.wolfi.dev/os?arch=x86_64{{/if}}"
     }
   ],
   "packageRules": [
@@ -74,6 +89,18 @@
         "pinDigest"
       ],
       "groupName": "ci tooling"
+    },
+    {
+      "description": "Wolfi OS packages from packages.wolfi.dev: automerged once images build, test and scan",
+      "matchDatasources": [
+        "apk"
+      ],
+      "groupName": "wolfi packages",
+      "automerge": true,
+      "labels": [
+        "dependencies",
+        "wolfi"
+      ]
     },
     {
       "description": "Major versions change behaviour: open the pull request, merge it by hand",
