@@ -96,12 +96,23 @@ Every run takes each image through these steps; a version exists for users only 
 
 | Step | What happens | If it fails |
 | :--- | :--- | :--- |
-| **Upstream source compilation** | `melange build` natively on x86_64 and aarch64 with GPG signature verification | Release stops |
-| **Image build** | `apko build` natively for x86_64 and aarch64, with the local Melange packages if applicable | Release stops |
-| **Tests** | `scripts/test-image.sh`: functional execution, permissions, standard library verification | Release stops |
-| **OpenSCAP** | `scripts/stig-scan.sh`: audited against DISA GPOS SRG profile | Release stops |
-| **Grype** | `scripts/vuln-scan.sh`: scans for known CVEs | Release stops |
-| **Publish** | Pushed to GHCR, signed with Sigstore keyless, attested with SBOM, scan reports and SLSA L3 provenance | Image remains unreleased |
+| 1. Build and test | apko builds the image natively on x86_64 and aarch64 (using locally built Melange packages if applicable); functional, standard library, hardening-profile and vulnerability scans run on each | Nothing is published |
+| 2. Compare | Both architectures are built together; each must be byte for byte the image tested in step 1. If the result equals the image under the floating tag (`3.12`), nothing changed and the run stops here for that image | Nothing is published |
+| 3. Publish by digest | The image is pushed to GHCR without any tag | Untagged, invisible to users; the cleanup deletes it |
+| 4. Sign, attest, verify | Sigstore signatures; SBOM, hardening-profile, vulnerability and SLSA provenance attestations; all verified | Still untagged |
+| 5. Tag | The release tag (`3.12.16-20261110.1`) and the floating tags move to the new digest | A re-run of the failed job tags it |
+| 6. Release | A GitHub release with the changes, the scan results, the SBOMs and the OpenSCAP report, created only if the tag exists on that digest; the badges are updated | A re-run of the failed job creates it |
+| 7. Keep ten | The ten newest versions of each image stay, in GHCR and as GitHub releases | Never fails a release; runs again next time |
+
+- **Only changed images are published.** The builds are reproducible: the same packages give the
+  same digest. An hourly check starts a build as soon as Wolfi ships a new version of something
+  inside an image, and the build publishes only the images whose digest changed.
+- **Release tags never move and never point to an image without its evidence.** Floating tags
+  always point to a kept, signed version.
+- **Retention: ten versions per image.** GHCR and the GitHub releases keep the ten newest versions
+  of each image (`3.12`, `3.12-dev`, `3.13`, `3.11`, `3.10`, …).
+- **The evidence outlives the image.** For every version ever published, release records, SBOMs and
+  OpenSCAP reports are preserved in GitHub Pages archive and Rekor.
 
 ---
 
@@ -146,3 +157,4 @@ This project aligns base images with the mandatory cybersecurity frameworks of t
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for third-party component licenses.
+
