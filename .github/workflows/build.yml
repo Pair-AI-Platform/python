@@ -92,6 +92,7 @@ jobs:
           mkdir -p .keys
           if [ -n "$SIGNING_KEY" ]; then
             (umask 077; printf '%s\n' "$SIGNING_KEY" > .keys/python-packages.rsa)
+            openssl rsa -in .keys/python-packages.rsa -traditional -out .keys/python-packages.rsa
             cp keys/python-packages.rsa.pub .keys/python-packages.rsa.pub
             openssl pkey -in .keys/python-packages.rsa -pubout | diff -q - .keys/python-packages.rsa.pub
           elif [ "${{ inputs.publish }}" = true ]; then
