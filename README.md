@@ -102,14 +102,14 @@ Every run takes each image through these steps; a version exists for users only 
 | 4. Sign, attest, verify | Sigstore signatures; SBOM, hardening-profile, vulnerability and SLSA provenance attestations; all verified | Still untagged |
 | 5. Tag | The release tag (`3.12.16-20261110.1`) and the floating tags move to the new digest | A re-run of the failed job tags it |
 | 6. Release | A GitHub release with the changes, the scan results, the SBOMs and the OpenSCAP report, created only if the tag exists on that digest; the badges are updated | A re-run of the failed job creates it |
-| 7. Keep ten | The ten newest versions of each image stay, in GHCR and as GitHub releases | Never fails a release; runs again next time |
+| 7. Keep five | The five newest versions of each image stay, in GHCR and as GitHub releases | Never fails a release; runs again next time |
 
 - **Only changed images are published.** The builds are reproducible: the same packages give the
   same digest. An hourly check starts a build as soon as Wolfi ships a new version of something
   inside an image, and the build publishes only the images whose digest changed.
 - **Release tags never move and never point to an image without its evidence.** Floating tags
   always point to a kept, signed version.
-- **Retention: ten versions per image.** GHCR and the GitHub releases keep the ten newest versions
+- **Retention: five versions per image.** GHCR and the GitHub releases keep the five newest versions
   of each image (`3.12`, `3.12-dev`, `3.13`, `3.11`, `3.10`, …).
 - **The evidence outlives the image.** For every version ever published, release records, SBOMs and
   OpenSCAP reports are preserved in GitHub Pages archive and Rekor.

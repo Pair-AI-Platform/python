@@ -4,7 +4,7 @@ name: Release
 # Rebuilds every image every two hours (Wolfi publishes fixes continuously) and on every change to main, and
 # publishes the images whose content changed (see build.yml). Each published image gets a GitHub
 # release with its changelog and scan results, and its status (STIG score, vulnerabilities, latest
-# tag) is written to GitHub Pages for the README badges. Ten versions per image are kept, in GHCR
+# tag) is written to GitHub Pages for the README badges. Five versions per image are kept, in GHCR
 # and as GitHub releases.
 on:
   schedule:
@@ -95,7 +95,7 @@ jobs:
           publish_dir: ./site
           keep_files: true
 
-  # Keeps the ten newest versions of every image and nothing else: in GHCR only the release tags of
+  # Keeps the five newest versions of every image and nothing else: in GHCR only the release tags of
   # each family are counted (never `3.12`, `latest` or the sha256-* referrer tags), so a kept version
   # keeps its platform manifests, signatures and attestations; untagged leftovers of failed runs are
   # deleted. The GitHub releases of each family follow the same rule. Never fails the release.
@@ -120,13 +120,13 @@ jobs:
             echo "regex=^${major}\\.[0-9]+-dev-[0-9]{8}\\.[0-9]+\$" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Keep the Ten Newest Versions in GHCR
+      - name: Keep the Five Newest Versions in GHCR
         uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1.2.2
         with:
           package: python
           use-regex: true
           delete-tags: ${{ steps.pattern.outputs.regex }}
-          keep-n-tagged: 10
+          keep-n-tagged: 5
           delete-untagged: true
           delete-orphaned-images: true
           delete-partial-images: true
@@ -142,14 +142,14 @@ jobs:
           permission-contents: write
           permission-workflows: write
 
-      - name: Keep the Ten Newest GitHub Releases
+      - name: Keep the Five Newest GitHub Releases
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GH_REPO: ${{ github.repository }}
           REGEX: ${{ steps.pattern.outputs.regex }}
         run: |
           gh release list --limit 500 --json tagName,createdAt |
-            jq -r --arg re "$REGEX" 'map(select(.tagName | test($re))) | sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
+            jq -r --arg re "$REGEX" 'map(select(.tagName | test($re))) | sort_by(.createdAt) | reverse | .[5:] | .[].tagName' |
           while read -r tag; do
             echo "deleting release and tag $tag"
             gh release delete "$tag" --yes --cleanup-tag
