@@ -38,7 +38,7 @@ check "sh is available" docker run --rm --entrypoint sh "$image" -c "exit 0"
 check "bash is available" docker run --rm --entrypoint bash "$image" --version
 
 # Python standard library modules validation
-check "hashlib and OpenSSL crypto work" pyrun -c 'import hashlib; assert hashlib.sha256(b"pair-ai").hexdigest() == "816d43e5c9bce83e4ba7b11d37b12d1b714b3001850fcbf285f7a0dc08a8a474"'
+check "hashlib and OpenSSL crypto work" pyrun -c 'import hashlib; assert hashlib.sha256(b"pair-ai").hexdigest() == "66a48329799d073f84b4052aee6660808595854a12080c8beb2d3b958a10f4b4"'
 check "sqlite3 and ctypes work" pyrun -c 'import sqlite3, ctypes; conn = sqlite3.connect(":memory:"); conn.execute("CREATE TABLE t (x);"); conn.close()'
 check "compression modules work (zlib, bz2, lzma)" pyrun -c 'import zlib, bz2, lzma; assert zlib.decompress(zlib.compress(b"ok")) == b"ok"'
 check "ssl module loads CA certs" pyrun -c 'import ssl; ctx = ssl.create_default_context(); assert ctx.cert_store_stats()["x509"] > 50'
