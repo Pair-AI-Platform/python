@@ -106,11 +106,16 @@ jobs:
         run: |
           for recipe in melange/*.yaml; do
             name="$(basename "$recipe" .yaml)"
-            melange build "$recipe" --runner docker --arch "${{ matrix.arch }}" \
-              --source-dir "melange/$name" --signing-key .keys/python-packages.rsa --out-dir packages
-            melange test "$recipe" --runner docker --arch "${{ matrix.arch }}" \
-              --source-dir "melange/$name" --repository-append "$PWD/packages" \
-              --keyring-append "$PWD/.keys/python-packages.rsa.pub"
+            if grep -rqE "^\s*-\s+${name}(=|\b)" apko/; then
+              echo "==> Building package $name"
+              melange build "$recipe" --runner docker --arch "${{ matrix.arch }}" \
+                --source-dir "melange/$name" --signing-key .keys/python-packages.rsa --out-dir packages
+              melange test "$recipe" --runner docker --arch "${{ matrix.arch }}" \
+                --source-dir "melange/$name" --repository-append "$PWD/packages" \
+                --keyring-append "$PWD/.keys/python-packages.rsa.pub"
+            else
+              echo "==> Skipping $name (not referenced in apko/)"
+            fi
           done
           cp .keys/python-packages.rsa.pub packages/
           rm -rf .keys

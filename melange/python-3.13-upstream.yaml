@@ -26,6 +26,7 @@ package:
       - python3=${{package.full-version}}
       - python-3=${{package.full-version}}
       - python-3.13=${{package.full-version}}
+      - python-3.13-base=${{package.full-version}}
     provider-priority: 100
 
 environment:
@@ -46,7 +47,7 @@ environment:
       - libffi-dev
       - mpdecimal-dev
       - ncurses-dev
-      - openssl-dev
+      - openssl-3.6-dev
       - readline-dev
       - sqlite-dev
       - xz
@@ -95,6 +96,7 @@ subpackages:
       provides:
         - python-3.13-dev=${{package.full-version}}
         - python3-dev=${{package.full-version}}
+        - python-3.13-base-dev=${{package.full-version}}
     description: "Python 3.13 development headers and pkg-config files"
 
 test:
