@@ -1,0 +1,76 @@
+{
+  "family": "3.13",
+  "release": "3.13.18-20261110.7",
+  "python": "3.13.18",
+  "digest": "sha256:5321a86d3229ce301d11f2c2ab5543dd8860ac9631178ce6bebff120211f00a4",
+  "stig": {
+    "x86_64": {
+      "counts": {
+        "notapplicable": 107,
+        "fail": 6,
+        "pass": 85
+      },
+      "applicable": 91,
+      "score": 93.4
+    },
+    "aarch64": {
+      "counts": {
+        "notapplicable": 107,
+        "fail": 6,
+        "pass": 85
+      },
+      "applicable": 91,
+      "score": 93.4
+    }
+  },
+  "vulnerabilities": {
+    "x86_64": {
+      "Critical": 0,
+      "High": 2,
+      "Medium": 2,
+      "Low": 1,
+      "Negligible": 0,
+      "Unknown": 0
+    },
+    "aarch64": {
+      "Critical": 0,
+      "High": 2,
+      "Medium": 2,
+      "Low": 1,
+      "Negligible": 0,
+      "Unknown": 0
+    }
+  },
+  "sbom": {
+    "x86_64": {
+      "packages": 36,
+      "spdx_packages": 196
+    },
+    "aarch64": {
+      "packages": 36,
+      "spdx_packages": 196
+    }
+  },
+  "size": {
+    "x86_64": {
+      "compressed": 33195167,
+      "installed": 33196684
+    },
+    "aarch64": {
+      "compressed": 31567904,
+      "installed": 86494415
+    }
+  },
+  "key_packages": [
+    "ca-certificates-bundle 20261020-r0",
+    "glibc-2.44 2.44-r16",
+    "libffi 3.8.0-r2",
+    "libstdc++ 16.2.0-r3",
+    "openssl-4.0-libcrypto 4.0.3-r8",
+    "openssl-4.0-libssl 4.0.3-r8",
+    "py3-pip-wheel 26.2.2-r2",
+    "python-3.13 3.13.18_git20261030-r0",
+    "python-3.13-base 3.13.18_git20261030-r0",
+    "sqlite-libs 3.54.1-r0"
+  ]
+}
