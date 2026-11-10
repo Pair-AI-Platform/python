@@ -45,7 +45,7 @@ jobs:
           permission-issues: write
           permission-workflows: write
           permission-checks: read
-          permission-commit-statuses: read
+          permission-statuses: read
           permission-vulnerability-alerts: read
 
       - name: Renovate
