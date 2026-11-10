@@ -12,7 +12,8 @@ set -euo pipefail
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
-local_packages="$(sed -n 's/^  name: //p' melange/*.yaml 2>/dev/null | tr '\n' '|' | sed 's/|$//')"
+local_names="$(sed -n 's/^  name: //p' melange/*.yaml 2>/dev/null)"
+local_packages="$(for n in $local_names; do echo "$n"; echo "$n-dev"; done | tr '\n' '|' | sed 's/|$//')"
 
 for config in apko/*.apko.yaml; do
   image="$(basename "$config" .apko.yaml)"

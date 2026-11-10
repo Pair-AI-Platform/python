@@ -266,6 +266,70 @@ def pages(record_dir, site, archive_release=True):
     (archive / "index.html").write_text(page(rec, record_dir, site).replace(f"../sbom/{family}/", "").replace(
         f"../reports/{family}/", ""))
     write_status(rec, site)
+    write_index(site)
+
+
+def write_index(site):
+    site = pathlib.Path(site)
+    status_dir = site / "status"
+    if not status_dir.exists():
+        return
+    families = []
+    for sf in sorted(status_dir.glob("*.json")):
+        try:
+            families.append(json.loads(sf.read_text()))
+        except Exception:
+            continue
+    if not families:
+        return
+    rows = []
+    for f in families:
+        fam = f["family"]
+        rel = f.get("release", fam)
+        x86_stig = f.get("stig", {}).get("x86_64", {})
+        stig_str = f"{x86_stig.get('score', 0)}%"
+        vulns = f.get("vulnerabilities", {}).get("x86_64", {})
+        c_vulns = vulns.get("Critical", 0)
+        h_vulns = vulns.get("High", 0)
+        m_vulns = vulns.get("Medium", 0)
+        l_vulns = vulns.get("Low", 0)
+        vuln_str = f"C:{c_vulns} H:{h_vulns} M:{m_vulns} L:{l_vulns}"
+        rows.append(
+            f"<tr>"
+            f'<td><a href="images/{fam}.html"><strong>python:{fam}</strong></a></td>'
+            f'<td><code>{rel}</code></td>'
+            f'<td><a href="images/{fam}.html#stig">{stig_str}</a></td>'
+            f'<td><a href="images/{fam}.html#vulnerabilities">{vuln_str}</a></td>'
+            f'<td><a href="reports/{fam}/stig-x86_64.html">STIG (x86_64)</a> · <a href="reports/{fam}/stig-aarch64.html">STIG (arm64)</a></td>'
+            f'<td><a href="sbom/{fam}/sbom-x86_64.spdx.json">SBOM (x86_64)</a> · <a href="sbom/{fam}/sbom-aarch64.spdx.json">SBOM (arm64)</a></td>'
+            f"</tr>"
+        )
+
+    html = (
+        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">\n"
+        "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n"
+        "<title>Pair AI - Python LTS Base Images</title>\n"
+        "<style>\n"
+        "body{font-family:system-ui,-apple-system,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#1f2328;line-height:1.5}\n"
+        "h1{font-size:1.8rem;margin-bottom:0.5rem}\n"
+        "p.sub{color:#656d76;margin-top:0;margin-bottom:1.5rem}\n"
+        "table{border-collapse:collapse;width:100%;font-size:.9rem;margin:1rem 0}\n"
+        "th,td{border:1px solid #d0d7de;padding:.5rem .75rem;text-align:left;vertical-align:middle}\n"
+        "th{background:#f6f8fa}\n"
+        "code{font-size:.85rem;background:#f6f8fa;padding:2px 4px;border-radius:4px}\n"
+        "a{color:#0969da;text-decoration:none}\n"
+        "a:hover{text-decoration:underline}\n"
+        "</style>\n"
+        "</head><body>\n"
+        "<h1>Pair AI - Python LTS Base Images</h1>\n"
+        "<p class=\"sub\">Hardened, multi-architecture (x86_64 / aarch64) Python base container images built with Wolfi & Melange with signed attestations and DISA STIG profile reports.</p>\n"
+        "<table>\n"
+        "<thead><tr><th>Image Family</th><th>Release</th><th>STIG Compliance</th><th>Vulnerabilities</th><th>STIG Reports</th><th>SBOMs</th></tr></thead>\n"
+        "<tbody>\n" + "\n".join(rows) + "\n</tbody>\n"
+        "</table>\n"
+        "</body></html>\n"
+    )
+    (site / "index.html").write_text(html)
 
 
 def write_status(rec, site):
@@ -313,6 +377,8 @@ if __name__ == "__main__":
         print(notes(json.loads(pathlib.Path(sys.argv[2]).read_text())), end="")
     elif command == "pages":
         pages(sys.argv[2], sys.argv[3], archive_release="--no-archive" not in sys.argv[4:])
+    elif command == "index":
+        write_index(sys.argv[2])
     else:
         sys.exit(f"unknown command {command}")
 

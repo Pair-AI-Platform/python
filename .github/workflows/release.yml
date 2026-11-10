@@ -142,6 +142,7 @@ jobs:
           for dir in records/status-*; do
             [ -f "$dir/record.json" ] && python3 scripts/release.py pages "$dir" site --no-archive
           done
+          python3 scripts/release.py index site
           if [ -n "$(ls -A site)" ]; then echo "any=true" >> "$GITHUB_OUTPUT"; fi
 
       - name: Publish Status Pages
