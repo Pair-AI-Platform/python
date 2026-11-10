@@ -1,0 +1,31 @@
+# Builds and tests every image on pull requests, natively on both architectures. Runs OpenSCAP
+# and Grype; uploads the reports and writes the summary to the job. Does not publish, does not
+# attest.
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apko/**'
+      - 'melange/**'
+      - 'keys/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+      - '.github/workflows/pr.yml'
+
+concurrency:
+  group: pr-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      publish: false

@@ -1,0 +1,155 @@
+# Scheduled and continuous delivery workflow.
+# Rebuilds every image every two hours (Wolfi publishes fixes continuously) and on every change to main, and
+# publishes the images whose content changed (see build.yml). Each published image gets a GitHub
+# release with its changelog and scan results, and its status (STIG score, vulnerabilities, latest
+# tag) is written to GitHub Pages for the README badges. Ten versions per image are kept, in GHCR
+# and as GitHub releases.
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'apko/**'
+      # Python upstream from python.org: Renovate's version updates land here
+      - 'melange/**'
+      - 'keys/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Publish even when the image content is unchanged'
+        type: boolean
+        default: false
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build and test
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      publish: true
+      site: true
+
+  # Assembles GitHub Pages from the records uploaded by the publish job
+  pages:
+    name: pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Checkout main (for the release script)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: repo
+          persist-credentials: false
+
+      - name: Download Records
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        continue-on-error: true
+        with:
+          pattern: record-*
+          path: records
+
+      - name: Update Pages
+        id: pages
+        run: |
+          mkdir -p site
+          if [ -d records ] && [ "$(ls -A records)" ]; then
+            for r in records/*; do
+              echo "updating site from $r"
+              python3 repo/scripts/release.py pages "$r" site
+            done
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "no new image was released; badges stay as they were"
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to GitHub Pages
+        if: steps.pages.outputs.updated == 'true'
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./site
+          keep_files: true
+
+  # Keeps the ten newest versions of every image and nothing else: in GHCR only the release tags of
+  # each family are counted (never `3.12`, `latest` or the sha256-* referrer tags), so a kept version
+  # keeps its platform manifests, signatures and attestations; untagged leftovers of failed runs are
+  # deleted. The GitHub releases of each family follow the same rule. Never fails the release.
+  cleanup:
+    name: cleanup (${{ matrix.image.family }})
+    needs: [build, pages]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.build.outputs.images || '[]') }}
+    env:
+      FAMILY: ${{ matrix.image.family }}
+    steps:
+      - name: Tag Regex
+        id: pattern
+        run: |
+          major="${FAMILY%%-*}"
+          if [ "$FAMILY" = "$major" ]; then
+            echo "regex=^${major}\\.[0-9]+-[0-9]{8}\\.[0-9]+\$" >> "$GITHUB_OUTPUT"
+          else
+            echo "regex=^${major}\\.[0-9]+-dev-[0-9]{8}\\.[0-9]+\$" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Keep the Ten Newest Versions in GHCR
+        uses: dataaxiom/ghcr-cleanup-action@d52806a0dc70b430571a37da1fde39733ffd640f # v1.2.2
+        with:
+          package: python
+          use-regex: true
+          delete-tags: ${{ steps.pattern.outputs.regex }}
+          keep-n-tagged: 10
+          delete-untagged: true
+          delete-orphaned-images: true
+          delete-partial-images: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Generate App Token for Releases
+        id: app-token
+        uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
+        with:
+          app-id: ${{ vars.RENOVATE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-workflows: write
+
+      - name: Keep the Ten Newest GitHub Releases
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+          REGEX: ${{ steps.pattern.outputs.regex }}
+        run: |
+          gh release list --limit 500 --json tagName,createdAt |
+            jq -r --arg re "$REGEX" 'map(select(.tagName | test($re))) | sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
+          while read -r tag; do
+            echo "deleting release and tag $tag"
+            gh release delete "$tag" --yes --cleanup-tag
+          done
+        continue-on-error: true

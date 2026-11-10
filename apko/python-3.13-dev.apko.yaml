@@ -1,0 +1,61 @@
+# Python 3.13 development (current stable line): with build tools (gcc, make),
+# python3-dev headers, git, pip, sh and bash shells; runs as nonroot (1000:1000).
+contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+  repositories:
+    - https://packages.wolfi.dev/os
+  packages:
+    - wolfi-baselayout
+    - ca-certificates-bundle
+    - tzdata
+    - python-3.13
+    - python-3.13-dev
+    - py3-pip
+    - build-base
+    - libffi-dev
+    - openssl-dev
+    - git
+    - curl
+    - busybox
+    - bash
+
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 1000
+  users:
+    - username: nonroot
+      uid: 1000
+      gid: 1000
+      shell: /bin/bash
+  run-as: 1000
+
+paths:
+  - path: /app
+    type: directory
+    uid: 1000
+    gid: 1000
+    permissions: 0o755
+
+work-dir: /app
+
+entrypoint:
+  command: /usr/bin/python3
+
+environment:
+  PATH: /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+
+annotations:
+  org.opencontainers.image.title: Python 3.13 Dev (Current Stable)
+  org.opencontainers.image.description: Minimal, non-root Python 3.13 development container image on Wolfi with build-base, C extension headers, git, pip, sh and bash.
+  org.opencontainers.image.url: https://github.com/Pair-AI-Platform/python
+  org.opencontainers.image.documentation: https://pair-ai-platform.github.io/python/
+  org.opencontainers.image.source: https://github.com/Pair-AI-Platform/python
+
+archs:
+  - x86_64
+  - aarch64

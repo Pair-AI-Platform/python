@@ -1,0 +1,58 @@
+# Python 3.11 runtime (maintenance LTS): with pip, sh and bash shells; runs as
+# nonroot (1000:1000). Packages are not pinned: every build takes current packages, and the
+# release workflow publishes a new version only when the resulting image differs from the last one.
+# Python 3.11 itself is python-3.11-upstream, compiled from official python.org source built by
+# melange/python-3.11-upstream.yaml (see docs/PYTHON-SOURCES.md).
+contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+  repositories:
+    - https://packages.wolfi.dev/os
+  packages:
+    - wolfi-baselayout
+    - ca-certificates-bundle
+    - tzdata
+    - python-3.11-upstream
+    - py3-pip
+    - busybox
+    - bash
+
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 1000
+  users:
+    - username: nonroot
+      uid: 1000
+      gid: 1000
+      shell: /bin/bash
+  run-as: 1000
+
+paths:
+  - path: /app
+    type: directory
+    uid: 1000
+    gid: 1000
+    permissions: 0o755
+
+work-dir: /app
+
+entrypoint:
+  command: /usr/bin/python3
+
+environment:
+  PATH: /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+
+annotations:
+  org.opencontainers.image.title: Python 3.11 (LTS)
+  org.opencontainers.image.description: Minimal, non-root Python 3.11 LTS container image on Wolfi with pip, sh and bash. Verified upstream python.org source.
+  org.opencontainers.image.url: https://github.com/Pair-AI-Platform/python
+  org.opencontainers.image.documentation: https://pair-ai-platform.github.io/python/
+  org.opencontainers.image.source: https://github.com/Pair-AI-Platform/python
+
+archs:
+  - x86_64
+  - aarch64

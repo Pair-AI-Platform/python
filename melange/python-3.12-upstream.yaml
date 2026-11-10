@@ -1,0 +1,119 @@
+# Python 3.12 from official source published by the Python Software Foundation on python.org,
+# packaged for the images in apko/. Wolfi moved non-latest Python releases to Chainguard's commercial
+# repository, so when public Wolfi packages are frozen or unavailable, this recipe builds Python
+# directly from verified upstream source; see docs/PYTHON-SOURCES.md.
+#
+# The build downloads nothing it does not verify:
+#   - Python-${{package.version}}.tar.xz.asc is checked with gpgv against the Python release keys in
+#     python-3.12-upstream/python-release-keys.kbx (Thomas Wouters, key ID A821E680E5FA6305);
+#   - the signature is verified before extracting or building.
+# Renovate updates the version from python.org, and scripts/update-python-release-keys.sh
+# refreshes the keyring when signing keys are rotated.
+package:
+  name: python-3.12-upstream
+  # renovate: datasource=python-version depName=python versioning=python
+  version: "3.12.16"
+  epoch: 0
+  description: "Python 3.12 LTS, compiled from official python.org source, GPG signature verified"
+  url: https://www.python.org
+  copyright:
+    - license: PSF-2.0
+  target-architecture:
+    - x86_64
+    - aarch64
+  dependencies:
+    provides:
+      - python3=${{package.full-version}}
+      - python-3=${{package.full-version}}
+      - python-3.12=${{package.full-version}}
+    provider-priority: 100
+
+environment:
+  contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
+    packages:
+      - build-base
+      - busybox
+      - bzip2-dev
+      - ca-certificates-bundle
+      - curl
+      - expat-dev
+      - gdbm-dev
+      - gpgv
+      - libffi-dev
+      - mpdecimal-dev
+      - ncurses-dev
+      - openssl-dev
+      - readline-dev
+      - sqlite-dev
+      - xz
+      - xz-dev
+      - zlib-dev
+
+pipeline:
+  - name: Download and verify
+    runs: |
+      base="https://www.python.org/ftp/python/${{package.version}}"
+      tarball="Python-${{package.version}}.tar.xz"
+      curl -fsSL --retry 3 -o "$tarball" "$base/$tarball"
+      curl -fsSL --retry 3 -o "$tarball.asc" "$base/$tarball.asc"
+      gpgv --keyring ./python-release-keys.kbx "$tarball.asc" "$tarball"
+      tar -xf "$tarball"
+      echo "Python-${{package.version}}" > dirname
+
+  - name: Configure and build
+    runs: |
+      cd "$(cat dirname)"
+      ./configure \
+        --prefix=/usr \
+        --enable-shared \
+        --with-system-expat \
+        --with-system-ffi \
+        --without-ensurepip \
+        --enable-loadable-sqlite-extensions \
+        --with-lto \
+        --enable-optimizations
+      make -j"$(nproc)"
+      make DESTDIR="${{targets.destdir}}" install
+
+      ln -sf python3 "${{targets.destdir}}/usr/bin/python"
+      install -Dm644 LICENSE "${{targets.destdir}}/usr/share/licenses/${{package.name}}/LICENSE"
+
+      # Prune unneeded test directories and bytecode to reduce package size
+      find "${{targets.destdir}}/usr/lib" -type d -name "test" -prune -exec rm -rf {} +
+      find "${{targets.destdir}}/usr/lib" -type d -name "tests" -prune -exec rm -rf {} +
+      find "${{targets.destdir}}/usr/lib" -name "*.pyc" -delete
+
+subpackages:
+  - name: ${{package.name}}-dev
+    pipeline:
+      - uses: split/dev
+    dependencies:
+      provides:
+        - python-3.12-dev=${{package.full-version}}
+        - python3-dev=${{package.full-version}}
+    description: "Python 3.12 development headers and pkg-config files"
+
+test:
+  environment:
+    contents:
+      keyring:
+        - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+      repositories:
+        - https://packages.wolfi.dev/os
+      packages:
+        - busybox
+        - ca-certificates-bundle
+  pipeline:
+    - name: The packaged version runs
+      runs: |
+        python3 --version
+        test "$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:3])))')" = "${{package.version}}"
+        python3 -c "import hashlib, sqlite3, ssl, zlib, bz2, lzma, ctypes; print('python 3.12 modules loaded ok')"
+
+update:
+  enabled: false
+  exclude-reason: "Renovate tracks the version (renovate.json)"

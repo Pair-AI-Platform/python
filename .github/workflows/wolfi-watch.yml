@@ -1,0 +1,47 @@
+# Checks hourly whether any package used in our images was updated in Wolfi. If so, triggers
+# release.yml, which rebuilds the affected images and publishes them.
+#
+# Runs every hour at minute 42, offset from the two-hourly rebuild in release.yml.
+name: wolfi-watch
+
+on:
+  schedule:
+    - cron: '42 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check wolfi packages
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@756fe2d284c7292c4e9b62c8a28f1e5629c59532 # v4.1.3
+        with:
+          cosign-release: v3.1.4
+
+      - name: Install apko
+        run: scripts/install-tools.sh apko
+
+      - name: Compare with Latest Wolfi State
+        id: compare
+        run: |
+          # Writes changed=true to GITHUB_OUTPUT if any package in apko/*.yaml has a newer version in Wolfi
+          scripts/wolfi-state.sh
+
+      - name: Trigger Release
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Packages changed in Wolfi; triggering release"
+          gh workflow run release.yml --ref main

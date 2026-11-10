@@ -1,0 +1,21 @@
+# The OpenSCAP scanner used by scripts/stig-scan.sh, built from Wolfi packages: openscap
+# (LGPL-2.1-or-later) and chainguard-security-guide (Apache-2.0), which holds the STIG content
+# ssg-chainguard-gpos-ds.xml. Built in CI and never published.
+contents:
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+  repositories:
+    - https://packages.wolfi.dev/os
+  packages:
+    - wolfi-baselayout
+    - busybox
+    - bash
+    - openscap
+    - chainguard-security-guide
+
+accounts:
+  run-as: root
+
+archs:
+  - x86_64
+  - aarch64

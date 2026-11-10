@@ -1,0 +1,170 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Keeps apko, the Grype image, the CLI tools and the GitHub Actions current. The Wolfi packages inside the images are not pinned: the release rebuilds every image every two hours and publishes it when its content changed. Upstream Python versions in melange/ are updated from python.org as soon as PSF publishes new patch or security releases. Runs self-hosted on this repository only (.github/workflows/renovate.yml).",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "timezone": "Africa/Cairo",
+  "schedule": [
+    "at any time"
+  ],
+  "enabledManagers": [
+    "custom.regex",
+    "github-actions"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 10,
+  "automerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "platformAutomerge": false,
+  "ignoreTests": false,
+  "rebaseWhen": "behind-base-branch",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Tool images pinned by tag and digest in the scripts (Grype)",
+      "fileMatch": [
+        "^\\.github/workflows/[^/]+\\.ya?ml$",
+        "^scripts/[^/]+\\.sh$"
+      ],
+      "matchStrings": [
+        "(?<depName>[a-z0-9][a-z0-9._-]*(?:/[a-z0-9][a-z0-9._-]*)+):(?<currentValue>[\\w.-]+)@(?<currentDigest>sha256:[a-f0-9]{64})"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "Tool versions annotated with a '# renovate:' comment in the workflows and scripts",
+      "fileMatch": [
+        "^\\.github/workflows/[^/]+\\.ya?ml$",
+        "^scripts/[^/]+\\.sh$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s*[\\w-]+(?::\\s|=)[\"']?(?<currentValue>[^\"'\\s]+)"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Package versions in the melange recipes, annotated with a '# renovate:' comment (Python upstream from python.org)",
+      "fileMatch": [
+        "^melange/[^/]+\\.yaml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) versioning=(?<versioning>\\S+)\\n\\s+version: \"?(?<currentValue>[^\"\\s]+)\"?"
+      ],
+      "versioningTemplate": "{{{versioning}}}"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Tool images and GitHub Actions: one grouped pull request, automerged once its checks pass",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin",
+        "pinDigest"
+      ],
+      "groupName": "ci tooling"
+    },
+    {
+      "description": "Major versions change behaviour: open the pull request, merge it by hand",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false,
+      "labels": [
+        "dependencies",
+        "major"
+      ]
+    },
+    {
+      "description": "Python 3.13 from python.org: newest 3.13.x patch release as soon as released (security releases included), automerged once the images build, test and scan",
+      "matchFileNames": [
+        "melange/python-3.13-upstream.yaml"
+      ],
+      "matchDepNames": [
+        "python",
+        "python/cpython"
+      ],
+      "allowedVersions": ">=3.13.0 <3.14.0",
+      "groupName": "python 3.13 upstream",
+      "automerge": true,
+      "labels": [
+        "dependencies",
+        "python"
+      ]
+    },
+    {
+      "description": "Python 3.12 from python.org: newest 3.12.x patch release as soon as released (security releases included), automerged once the images build, test and scan",
+      "matchFileNames": [
+        "melange/python-3.12-upstream.yaml"
+      ],
+      "matchDepNames": [
+        "python",
+        "python/cpython"
+      ],
+      "allowedVersions": ">=3.12.0 <3.13.0",
+      "groupName": "python 3.12 upstream",
+      "automerge": true,
+      "labels": [
+        "dependencies",
+        "python"
+      ]
+    },
+    {
+      "description": "Python 3.11 from python.org: newest 3.11.x patch release as soon as released (security releases included), automerged once the images build, test and scan",
+      "matchFileNames": [
+        "melange/python-3.11-upstream.yaml"
+      ],
+      "matchDepNames": [
+        "python",
+        "python/cpython"
+      ],
+      "allowedVersions": ">=3.11.0 <3.12.0",
+      "groupName": "python 3.11 upstream",
+      "automerge": true,
+      "labels": [
+        "dependencies",
+        "python"
+      ]
+    },
+    {
+      "description": "Python 3.10 from python.org: newest 3.10.x patch release as soon as released (security releases included), automerged once the images build, test and scan",
+      "matchFileNames": [
+        "melange/python-3.10-upstream.yaml"
+      ],
+      "matchDepNames": [
+        "python",
+        "python/cpython"
+      ],
+      "allowedVersions": ">=3.10.0 <3.11.0",
+      "groupName": "python 3.10 upstream",
+      "automerge": true,
+      "labels": [
+        "dependencies",
+        "python"
+      ]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": [
+      "at any time"
+    ],
+    "minimumReleaseAge": null,
+    "labels": [
+      "dependencies",
+      "security"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+# Build and scan output
+packages/
+.keys/
+*.rsa
+out/
+results/
+record/
+site/
+*.tar
+*.spdx.json
+*.lock.json
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

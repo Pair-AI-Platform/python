@@ -1,0 +1,36 @@
+Python images on Wolfi
+Copyright 2026 Pair-AI-Platform
+
+This repository is licensed under the Apache License, Version 2.0 (see LICENSE). That license covers
+the image definitions, workflows, scripts and documentation in it. It does not cover the software
+inside the images.
+
+Third-party software in the published images
+--------------------------------------------
+Every image is assembled from Wolfi packages (https://packages.wolfi.dev) and official Python sources
+(https://www.python.org), each under its upstream license; the Wolfi build recipes are Apache License 2.0
+(https://github.com/wolfi-dev/os). The SPDX SBOM attached to every image and every GitHub release lists
+the license of each package. Among them:
+
+- Python: Python Software Foundation License Version 2 (PSF-2.0).
+- pip, setuptools: MIT License / Apache License 2.0.
+- glibc: LGPL-2.1-or-later. OpenSSL: Apache License 2.0.
+- In both runtime and development images: busybox (GPL-2.0-only), bash (GPL-3.0-or-later).
+- In the development images also: GCC (GPL-3.0-or-later with the GCC Runtime Library Exception),
+  make (GPL-3.0-or-later), git (GPL-2.0-only).
+
+Source code for the GPL and LGPL packages is available from their upstream projects and from the
+Wolfi build recipes, which name the exact upstream source and version of every package. On request,
+we provide the corresponding source of any package in an image we published, for three years after
+that image's release.
+
+Tools used in the build pipeline (used, not distributed)
+--------------------------------------------------------
+apko, oras, cosign, melange and Grype: Apache License 2.0. OpenSCAP: LGPL-2.1-or-later. The STIG
+content (Wolfi package chainguard-security-guide): Apache License 2.0.
+
+Trademarks
+----------
+Python, Python Software Foundation, Wolfi, Chainguard and other names are trademarks of their respective
+owners. They are used only to identify the software involved. This project is not affiliated with or
+endorsed by the Python Software Foundation, Chainguard, DISA, or any regulator named in the README.
