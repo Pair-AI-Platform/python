@@ -1,22 +1,26 @@
-# Checks hourly whether any package used in our images was updated in Wolfi. If so, triggers
-# release.yml, which rebuilds the affected images and publishes them.
-#
-# Runs every hour at minute 42, offset from the two-hourly rebuild in release.yml.
-name: wolfi-watch
+name: Wolfi Watch
 
+# Every hour: works out which Wolfi package versions each image would get if it were built now, and
+# starts the release workflow as soon as that differs from the last check. A Wolfi fix therefore
+# reaches the images within about an hour; the release publishes only the images whose content
+# changed. The scheduled release every two hours stays as the safety net.
 on:
   schedule:
     - cron: '42 * * * *'
   workflow_dispatch:
 
-permissions:
-  contents: read
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions: {}
 
 jobs:
-  check:
-    name: check wolfi packages
-    runs-on: ubuntu-latest
+  watch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     permissions:
+      contents: read
       actions: write
     steps:
       - name: Checkout
@@ -30,19 +34,38 @@ jobs:
           cosign-release: v3.1.4
 
       - name: Install apko
-        run: scripts/install-tools.sh apko
-
-      - name: Compare with Latest Wolfi State
-        id: compare
         run: |
-          # Writes changed=true to GITHUB_OUTPUT if any package in apko/*.yaml has a newer version in Wolfi
-          scripts/wolfi-state.sh
+          scripts/install-tools.sh "$RUNNER_TEMP/bin" apko
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
-      - name: Trigger Release
-        if: steps.compare.outputs.changed == 'true'
+      - name: Resolve the Wolfi Packages
+        id: state
+        run: |
+          mkdir -p state
+          scripts/wolfi-state.sh > state/wolfi-state.txt
+          echo "hash=$(sha256sum state/wolfi-state.txt | cut -c1-32)" >> "$GITHUB_OUTPUT"
+          echo "$(wc -l < state/wolfi-state.txt) packages across all images"
+
+      # The cache is only a marker: a hit means this exact package state was already seen
+      - name: Seen Before
+        id: seen
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: state
+          key: wolfi-state-${{ steps.state.outputs.hash }}
+          lookup-only: true
+
+      - name: Start a Release
+        if: steps.seen.outputs.cache-hit != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Packages changed in Wolfi; triggering release"
-          gh workflow run release.yml --ref main
+          echo "Wolfi packages changed; starting the release"
+          gh workflow run release.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
 
+      - name: Remember This State
+        if: steps.seen.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: state
+          key: wolfi-state-${{ steps.state.outputs.hash }}
