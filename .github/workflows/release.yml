@@ -1,3 +1,5 @@
+name: Release
+
 # Scheduled and continuous delivery workflow.
 # Rebuilds every image every two hours (Wolfi publishes fixes continuously) and on every change to main, and
 # publishes the images whose content changed (see build.yml). Each published image gets a GitHub
