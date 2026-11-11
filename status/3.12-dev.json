@@ -1,8 +1,8 @@
 {
   "family": "3.12-dev",
-  "release": "3.12.16-dev-20261111.23",
+  "release": "3.12.16-dev-20261111.24",
   "python": "3.12.16",
-  "digest": "sha256:4604a01f7f4956a55112a62fbb99d74ad4888f63314d57f121f0004f5b3194bf",
+  "digest": "sha256:6c932c08a7dd4b1357755c21c5a0f90cfe8fcceff5df6c9532f6dda2b4183c63",
   "stig": {
     "x86_64": {
       "counts": {
@@ -43,22 +43,22 @@
   },
   "sbom": {
     "x86_64": {
-      "packages": 79,
-      "spdx_packages": 383
+      "packages": 80,
+      "spdx_packages": 386
     },
     "aarch64": {
-      "packages": 79,
-      "spdx_packages": 383
+      "packages": 80,
+      "spdx_packages": 386
     }
   },
   "size": {
     "x86_64": {
-      "compressed": 261708126,
-      "installed": 261709687
+      "compressed": 261708658,
+      "installed": 261710219
     },
     "aarch64": {
-      "compressed": 245688104,
-      "installed": 751743912
+      "compressed": 245752516,
+      "installed": 751749526
     }
   },
   "key_packages": [
