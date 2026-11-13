@@ -1,8 +1,8 @@
 {
   "family": "3.13-dev",
-  "release": "3.13.18-dev-20261113.42",
+  "release": "3.13.18-dev-20261113.51",
   "python": "3.13.18",
-  "digest": "sha256:3959d52025214cd4e828205bc13d1510dab16a7f50a13560c2ac33bc6510a08b",
+  "digest": "sha256:c5b2d637a2419ca98b7842e5e5a678f2b986de15e1a3de5cd18991b7a1dc8a5e",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,11 +53,11 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 249571130,
-      "installed": 249572702
+      "compressed": 249571150,
+      "installed": 249572722
     },
     "aarch64": {
-      "compressed": 233770556,
+      "compressed": 233770567,
       "installed": 714108859
     }
   },
@@ -66,8 +66,8 @@
     "ca-certificates-bundle 20261020-r0",
     "gcc 16.2.0-r3",
     "git 2.56.1-r0",
-    "glibc-2.44 2.44-r17",
-    "glibc-2.44-dev 2.44-r17",
+    "glibc-2.44 2.44-r18",
+    "glibc-2.44-dev 2.44-r18",
     "libffi 3.8.0-r2",
     "libffi-dev 3.8.0-r2",
     "libstdc++ 16.2.0-r3",
