@@ -1,8 +1,8 @@
 {
   "family": "3.10-dev",
-  "release": "3.10.22-dev-20261114.58",
+  "release": "3.10.22-dev-20261114.59",
   "python": "3.10.22",
-  "digest": "sha256:144b4058947861fecea09c477834c0ae952bb9eb2c10b354bd4d94861d0c0a8f",
+  "digest": "sha256:cde49c57703be82ebe745516e385a558336112dd3bf6cd9a2d196188a9854ba7",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 306015359,
-      "installed": 306016957
+      "compressed": 305969977,
+      "installed": 305971575
     },
     "aarch64": {
-      "compressed": 288231245,
-      "installed": 832962615
+      "compressed": 288335503,
+      "installed": 833072897
     }
   },
   "key_packages": [
@@ -72,7 +72,7 @@
     "libffi-dev 3.8.0-r2",
     "libstdc++ 16.2.0-r3",
     "libstdc++-dev 16.2.0-r3",
-    "make 4.4.1-r15",
+    "make 4.4.1-r16",
     "openssl-3.6-libcrypto 3.6.5-r6",
     "openssl-3.6-libssl 3.6.5-r6",
     "openssl-4.0-dev 4.0.3-r8",

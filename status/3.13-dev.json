@@ -1,8 +1,8 @@
 {
   "family": "3.13-dev",
-  "release": "3.13.18-dev-20261114.57",
+  "release": "3.13.18-dev-20261114.59",
   "python": "3.13.18",
-  "digest": "sha256:c5ee8512404834e5e855f098ecc6763b17fb845d5d6f057fc51b056fbeacae8f",
+  "digest": "sha256:9efb5605e7ef662591d0da1d12fe2af0869654fa6ad772ea6ec3ed7a7e884dd0",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 249571153,
-      "installed": 249572725
+      "compressed": 249602741,
+      "installed": 249604313
     },
     "aarch64": {
-      "compressed": 233770579,
-      "installed": 714108859
+      "compressed": 233791305,
+      "installed": 714157997
     }
   },
   "key_packages": [
@@ -72,7 +72,7 @@
     "libffi-dev 3.8.0-r2",
     "libstdc++ 16.2.0-r3",
     "libstdc++-dev 16.2.0-r3",
-    "make 4.4.1-r15",
+    "make 4.4.1-r16",
     "openssl-4.0-dev 4.0.3-r8",
     "openssl-4.0-libcrypto 4.0.3-r8",
     "openssl-4.0-libssl 4.0.3-r8",
