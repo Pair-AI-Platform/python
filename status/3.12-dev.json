@@ -1,8 +1,8 @@
 {
   "family": "3.12-dev",
-  "release": "3.12.16-dev-20261115.94",
+  "release": "3.12.16-dev-20261115.95",
   "python": "3.12.16",
-  "digest": "sha256:779983bef28475077ce48fbbc3d5226e1262e6fa8024cd8409bfcd5108d09a85",
+  "digest": "sha256:22ded993c10f61fb5a54fdb4edf138aa46f40ca2e552f53108a2820c375be500",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,11 +53,11 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 261760472,
-      "installed": 261762033
+      "compressed": 261760551,
+      "installed": 261762112
     },
     "aarch64": {
-      "compressed": 245765702,
+      "compressed": 245765804,
       "installed": 751822927
     }
   },
@@ -76,7 +76,7 @@
     "openssl-4.0-dev 4.0.3-r8",
     "openssl-4.0-libcrypto 4.0.3-r8",
     "openssl-4.0-libssl 4.0.3-r8",
-    "py3-pip-wheel 26.2.2-r2",
+    "py3-pip-wheel 26.2.2-r3",
     "python-3.12 3.12.16_git20261030-r0",
     "python-3.12-base 3.12.16_git20261030-r0",
     "python-3.12-base-dev 3.12.16_git20261030-r0",

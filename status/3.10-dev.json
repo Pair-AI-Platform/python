@@ -1,8 +1,8 @@
 {
   "family": "3.10-dev",
-  "release": "3.10.22-dev-20261115.94",
+  "release": "3.10.22-dev-20261115.95",
   "python": "3.10.22",
-  "digest": "sha256:644667e0dea107c14bb2408077e0f13a6c2d01f839e89f5f07716a285fd2808f",
+  "digest": "sha256:db906701bc90ca7c9d29739ae2f66c8489f266515e46739eb95c1711b79b79ff",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 305965733,
-      "installed": 305967331
+      "compressed": 306006875,
+      "installed": 306008473
     },
     "aarch64": {
-      "compressed": 288308254,
-      "installed": 833122416
+      "compressed": 288332534,
+      "installed": 833144064
     }
   },
   "key_packages": [
@@ -78,7 +78,7 @@
     "openssl-4.0-dev 4.0.3-r8",
     "openssl-4.0-libcrypto 4.0.3-r8",
     "openssl-4.0-libssl 4.0.3-r8",
-    "py3-pip-wheel 26.2.2-r2",
+    "py3-pip-wheel 26.2.2-r3",
     "python-3.10-upstream 3.10.22-r0",
     "python-3.10-upstream-dev 3.10.22-r0",
     "python-3.13-base 3.13.18_git20261115-r0",
