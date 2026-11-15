@@ -1,8 +1,8 @@
 {
   "family": "3.10",
-  "release": "3.10.22-20261115.95",
+  "release": "3.10.22-20261115.96",
   "python": "3.10.22",
-  "digest": "sha256:4e3ee1c54c41bf800be1538e62f6db8f6f52983749893faf09fd6ccc901c8b78",
+  "digest": "sha256:1ef48ac639b2997785c8e37d53b7d97514691455c4b248f60cb203beb8ec4af6",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,17 +53,17 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 57773825,
-      "installed": 57775372
+      "compressed": 57809279,
+      "installed": 57810826
     },
     "aarch64": {
-      "compressed": 54767952,
-      "installed": 145242720
+      "compressed": 54777034,
+      "installed": 145110816
     }
   },
   "key_packages": [
     "ca-certificates-bundle 20261020-r0",
-    "glibc-2.44 2.44-r19",
+    "glibc-2.44 2.44-r20",
     "libffi 3.8.0-r2",
     "libstdc++ 16.2.0-r4",
     "openssl-3.6-libcrypto 3.6.5-r6",
