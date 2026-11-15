@@ -5,8 +5,8 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.5rem 0}
 th,td{border:1px solid #d0d7de;padding:.35rem .6rem;text-align:left;vertical-align:top}
 th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-weight:600}
 .Medium{color:#9a6700;font-weight:600}.muted{color:#656d76}
-</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.13.18-dev-20261115.87</h1>
-<p>Python 3.13.18 (dev). Tags: <code>3.13.18-dev-20261115.87</code>, <code>3.13-dev</code>, <code>3.13.18-dev</code>. Index digest <code>sha256:efb4d689db9e632ca16c60dfb9e0b0dbfe53529b36c294ee41e5f51b62c920bc</code>.</p>
+</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.13.18-dev-20261115.92</h1>
+<p>Python 3.13.18 (dev). Tags: <code>3.13.18-dev-20261115.92</code>, <code>3.13-dev</code>, <code>3.13.18-dev</code>. Index digest <code>sha256:f84503aa706b4005fc977890c56b2b46554cff3e5a21fbfb0d5d94e7803df63e</code>.</p>
 <p><a href="#vulnerabilities">Vulnerabilities</a> · <a href="#sbom">SBOM</a> · <a href="#stig">Hardening profile</a></p>
 <h2 id="vulnerabilities">Vulnerabilities</h2>
 <p>Medium: 2 · Low: 1
@@ -19,7 +19,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <p class="muted">Comes from is the Wolfi package that brings the affected code into the image; a library bundled inside the toolchain, for example, comes from that package. Fixed upstream in is the version of the affected code that fixes it; the image gets the fix when the package it comes from ships that version, and the next build after that publishes it.</p>
 <h2 id="sbom">SBOM</h2><p>One SPDX SBOM per architecture, also attached to the image as a signed attestation.</p>
 <h3 id="sbom-x86_64">x86_64: 79 packages</h3>
-<p><a href="../sbom/3.13-dev/sbom-x86_64.spdx.json">Download sbom-x86_64.spdx.json</a> · 238.1 MB compressed, 238.1 MB installed</p>
+<p><a href="../sbom/3.13-dev/sbom-x86_64.spdx.json">Download sbom-x86_64.spdx.json</a> · 238.0 MB compressed, 238.0 MB installed</p>
 <table><tr><th>Package</th><th>Version</th><th>License</th></tr>
 <tr><td><code>bash</code></td><td>5.3-r14</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>binutils</code></td><td>2.47-r4</td><td>GPL-2.0</td></tr>
@@ -55,7 +55,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libgcc</code></td><td>16.2.0-r4</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libgomp</code></td><td>16.2.0-r4</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libidn2</code></td><td>2.3.8-r13</td><td>GPL-2.0-or-later AND LGPL-3.0-or-later</td></tr>
-<tr><td><code>libldap-2.7</code></td><td>2.7.2-r0</td><td>OLDAP-2.8</td></tr>
+<tr><td><code>libldap-2.7</code></td><td>2.7.2-r1</td><td>OLDAP-2.8</td></tr>
 <tr><td><code>libnghttp2-14</code></td><td>1.71.0-r0</td><td>MIT</td></tr>
 <tr><td><code>libpcre2-8-0</code></td><td>10.49-r3</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>libpkgconf8</code></td><td>3.0.11-r0</td><td>ISC</td></tr>
@@ -70,7 +70,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libxcrypt-dev</code></td><td>4.5.2-r8</td><td>GPL-2.0-or-later AND LGPL-2.1-or-later</td></tr>
 <tr><td><code>libzstd1</code></td><td>1.5.7-r14</td><td>BSD-2-Clause AND GPL-2.0-only</td></tr>
 <tr><td><code>linux-headers</code></td><td>7.3.4-r0</td><td>GPL-2.0-only WITH Linux-syscall-note</td></tr>
-<tr><td><code>lmdb</code></td><td>0.9.35-r3</td><td>OLDAP-2.8</td></tr>
+<tr><td><code>lmdb</code></td><td>0.9.35-r4</td><td>OLDAP-2.8</td></tr>
 <tr><td><code>make</code></td><td>4.4.1-r16</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>mpc</code></td><td>1.4.1-r4</td><td>LGPL-3.0-or-later</td></tr>
 <tr><td><code>mpdecimal</code></td><td>4.0.1-r6</td><td>BSD-2-Clause</td></tr>
@@ -99,7 +99,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>tzdata</code></td><td>2026f-r0</td><td>CC-PDDC</td></tr>
 <tr><td><code>wolfi-baselayout</code></td><td>20230201-r31</td><td>MIT</td></tr>
 <tr><td><code>xz</code></td><td>5.8.4-r2</td><td>GPL-3.0-or-later</td></tr>
-<tr><td><code>zlib</code></td><td>1.3.2.1_rc20260921-r2</td><td>MPL-2.0 AND MIT</td></tr>
+<tr><td><code>zlib</code></td><td>1.4-r0</td><td>MPL-2.0 AND MIT</td></tr>
 </table>
 <h3 id="sbom-aarch64">aarch64: 79 packages</h3>
 <p><a href="../sbom/3.13-dev/sbom-aarch64.spdx.json">Download sbom-aarch64.spdx.json</a> · 223.0 MB compressed, 681.1 MB installed</p>
@@ -138,7 +138,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libgcc</code></td><td>16.2.0-r4</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libgomp</code></td><td>16.2.0-r4</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libidn2</code></td><td>2.3.8-r13</td><td>GPL-2.0-or-later AND LGPL-3.0-or-later</td></tr>
-<tr><td><code>libldap-2.7</code></td><td>2.7.2-r0</td><td>OLDAP-2.8</td></tr>
+<tr><td><code>libldap-2.7</code></td><td>2.7.2-r1</td><td>OLDAP-2.8</td></tr>
 <tr><td><code>libnghttp2-14</code></td><td>1.71.0-r0</td><td>MIT</td></tr>
 <tr><td><code>libpcre2-8-0</code></td><td>10.49-r3</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>libpkgconf8</code></td><td>3.0.11-r0</td><td>ISC</td></tr>
@@ -153,7 +153,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libxcrypt-dev</code></td><td>4.5.2-r8</td><td>GPL-2.0-or-later AND LGPL-2.1-or-later</td></tr>
 <tr><td><code>libzstd1</code></td><td>1.5.7-r14</td><td>BSD-2-Clause AND GPL-2.0-only</td></tr>
 <tr><td><code>linux-headers</code></td><td>7.3.4-r0</td><td>GPL-2.0-only WITH Linux-syscall-note</td></tr>
-<tr><td><code>lmdb</code></td><td>0.9.35-r3</td><td>OLDAP-2.8</td></tr>
+<tr><td><code>lmdb</code></td><td>0.9.35-r4</td><td>OLDAP-2.8</td></tr>
 <tr><td><code>make</code></td><td>4.4.1-r16</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>mpc</code></td><td>1.4.1-r4</td><td>LGPL-3.0-or-later</td></tr>
 <tr><td><code>mpdecimal</code></td><td>4.0.1-r6</td><td>BSD-2-Clause</td></tr>
@@ -182,7 +182,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>tzdata</code></td><td>2026f-r0</td><td>CC-PDDC</td></tr>
 <tr><td><code>wolfi-baselayout</code></td><td>20230201-r31</td><td>MIT</td></tr>
 <tr><td><code>xz</code></td><td>5.8.4-r2</td><td>GPL-3.0-or-later</td></tr>
-<tr><td><code>zlib</code></td><td>1.3.2.1_rc20260921-r2</td><td>MPL-2.0 AND MIT</td></tr>
+<tr><td><code>zlib</code></td><td>1.4-r0</td><td>MPL-2.0 AND MIT</td></tr>
 </table>
 <h2 id="stig">Hardening profile (OpenSCAP, DISA GPOS SRG)</h2><p class="muted">Derived from the DISA General Purpose Operating System SRG; not an official DISA STIG for containers.</p><table><tr><th>Architecture</th><th>Passed / applicable</th><th>Not applicable</th><th>Report</th></tr>
 <tr><td>x86_64</td><td>85 / 91 (93.4%)</td><td>107</td><td><a href="../reports/3.13-dev/stig-x86_64.html">OpenSCAP report</a></td></tr>
