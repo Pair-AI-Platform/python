@@ -1,8 +1,8 @@
 {
   "family": "3.12-dev",
-  "release": "3.12.16-dev-20261115.93",
+  "release": "3.12.16-dev-20261115.94",
   "python": "3.12.16",
-  "digest": "sha256:e0698ea78b3b812f1bc7c55e6944c5b9969c961c3c76a540fc800b20b863bdc4",
+  "digest": "sha256:779983bef28475077ce48fbbc3d5226e1262e6fa8024cd8409bfcd5108d09a85",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 261721952,
-      "installed": 261723513
+      "compressed": 261760472,
+      "installed": 261762033
     },
     "aarch64": {
-      "compressed": 245751133,
-      "installed": 751822919
+      "compressed": 245765702,
+      "installed": 751822927
     }
   },
   "key_packages": [
@@ -81,7 +81,7 @@
     "python-3.12-base 3.12.16_git20261030-r0",
     "python-3.12-base-dev 3.12.16_git20261030-r0",
     "python-3.12-dev 3.12.16_git20261030-r0",
-    "python-3.13-base 3.13.18_git20261030-r0",
+    "python-3.13-base 3.13.18_git20261115-r0",
     "sqlite-libs 3.54.1-r0"
   ]
 }

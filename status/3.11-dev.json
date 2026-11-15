@@ -1,8 +1,8 @@
 {
   "family": "3.11-dev",
-  "release": "3.11.18-dev-20261115.93",
+  "release": "3.11.18-dev-20261115.94",
   "python": "3.11.18",
-  "digest": "sha256:1e8b0288db52e1e6e328e8e660cd33124d2c6708937750bbddba6012705f20d2",
+  "digest": "sha256:30fab8bc96ff28c75258153f7c05098759a9ba194d18a442d4fb6447269f4b30",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 320650474,
-      "installed": 320652072
+      "compressed": 320598819,
+      "installed": 320600417
     },
     "aarch64": {
-      "compressed": 302827071,
-      "installed": 872053171
+      "compressed": 302910165,
+      "installed": 872042747
     }
   },
   "key_packages": [
@@ -81,7 +81,7 @@
     "py3-pip-wheel 26.2.2-r2",
     "python-3.11-upstream 3.11.18-r0",
     "python-3.11-upstream-dev 3.11.18-r0",
-    "python-3.13-base 3.13.18_git20261030-r0",
+    "python-3.13-base 3.13.18_git20261115-r0",
     "sqlite-libs 3.54.1-r0"
   ]
 }
