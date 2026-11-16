@@ -1,8 +1,8 @@
 {
   "family": "3.13-dev",
-  "release": "3.13.18-dev-20261115.96",
+  "release": "3.13.18-dev-20261116.100",
   "python": "3.13.18",
-  "digest": "sha256:2f5b056a5da3c925d1ee6f95fab08ca6d697d9c2158bd22527a5fe81b112c625",
+  "digest": "sha256:d2bbb1c73e919c8a2d4a0b57c276f6b5f4e06eb59f8532f3f8b2f5e9aff598f4",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 249513956,
-      "installed": 249515528
+      "compressed": 249590881,
+      "installed": 249592453
     },
     "aarch64": {
-      "compressed": 233776854,
-      "installed": 714184084
+      "compressed": 233772987,
+      "installed": 714184060
     }
   },
   "key_packages": [
@@ -77,10 +77,10 @@
     "openssl-4.0-libcrypto 4.0.3-r8",
     "openssl-4.0-libssl 4.0.3-r8",
     "py3-pip-wheel 26.2.2-r3",
-    "python-3.13 3.13.18_git20261115-r0",
-    "python-3.13-base 3.13.18_git20261115-r0",
-    "python-3.13-base-dev 3.13.18_git20261115-r0",
-    "python-3.13-dev 3.13.18_git20261115-r0",
+    "python-3.13 3.13.18_git20261115-r1",
+    "python-3.13-base 3.13.18_git20261115-r1",
+    "python-3.13-base-dev 3.13.18_git20261115-r1",
+    "python-3.13-dev 3.13.18_git20261115-r1",
     "sqlite-libs 3.54.1-r0"
   ]
 }

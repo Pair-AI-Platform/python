@@ -5,16 +5,16 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.5rem 0}
 th,td{border:1px solid #d0d7de;padding:.35rem .6rem;text-align:left;vertical-align:top}
 th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-weight:600}
 .Medium{color:#9a6700;font-weight:600}.muted{color:#656d76}
-</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.13.18-20261115.96</h1>
-<p>Python 3.13.18 (runtime). Tags: <code>3.13.18-20261115.96</code>, <code>3.13</code>, <code>3.13.18</code>. Index digest <code>sha256:e62dbff8f84c927397fa14a344d258eb0d9255554ae265811fbc4dd0e64aad25</code>.</p>
+</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.13.18-20261116.100</h1>
+<p>Python 3.13.18 (runtime). Tags: <code>3.13.18-20261116.100</code>, <code>3.13</code>, <code>3.13.18</code>. Index digest <code>sha256:2517609be18746a6ec6650938ea028720e1815aef4fa7564ddf6b9c944b2cb6e</code>.</p>
 <p><a href="#vulnerabilities">Vulnerabilities</a> · <a href="#sbom">SBOM</a> · <a href="#stig">Hardening profile</a></p>
 <h2 id="vulnerabilities">Vulnerabilities</h2>
 <p>Medium: 2 · Low: 1
  <span class="muted">(Grype)</span></p>
 <table><tr><th>ID</th><th>Severity</th><th>Package</th><th>Installed</th><th>Comes from</th><th>Fixed upstream in</th><th>Architectures</th></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-15367">CVE-2025-15367</a></td><td class="Medium">Medium</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r0</td><td><code>python-3.13 3.13.18_git20261115-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-116566">CVE-2026-116566</a></td><td class="Medium">Medium</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r0</td><td><code>python-3.13 3.13.18_git20261115-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-103995">CVE-2026-103995</a></td><td class="Low">Low</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r0</td><td><code>python-3.13 3.13.18_git20261115-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-15367">CVE-2025-15367</a></td><td class="Medium">Medium</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r1</td><td><code>python-3.13 3.13.18_git20261115-r1</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-116566">CVE-2026-116566</a></td><td class="Medium">Medium</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r1</td><td><code>python-3.13 3.13.18_git20261115-r1</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-103995">CVE-2026-103995</a></td><td class="Low">Low</td><td><code>python-3.13</code></td><td>3.13.18_git20261115-r1</td><td><code>python-3.13 3.13.18_git20261115-r1</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
 </table>
 <p class="muted">Comes from is the Wolfi package that brings the affected code into the image; a library bundled inside the toolchain, for example, comes from that package. Fixed upstream in is the version of the affected code that fixes it; the image gets the fix when the package it comes from ships that version, and the next build after that publishes it.</p>
 <h2 id="sbom">SBOM</h2><p>One SPDX SBOM per architecture, also attached to the image as a signed attestation.</p>
@@ -49,8 +49,8 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>py3.13-pip</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
 <tr><td><code>py3.13-pip-base</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
 <tr><td><code>py3.13-setuptools</code></td><td>84.2.1-r0</td><td>MIT</td></tr>
-<tr><td><code>python-3.13</code></td><td>3.13.18_git20261115-r0</td><td>PSF-2.0</td></tr>
-<tr><td><code>python-3.13-base</code></td><td>3.13.18_git20261115-r0</td><td>PSF-2.0</td></tr>
+<tr><td><code>python-3.13</code></td><td>3.13.18_git20261115-r1</td><td>PSF-2.0</td></tr>
+<tr><td><code>python-3.13-base</code></td><td>3.13.18_git20261115-r1</td><td>PSF-2.0</td></tr>
 <tr><td><code>readline</code></td><td>8.3-r4</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>sqlite-libs</code></td><td>3.54.1-r0</td><td>blessing</td></tr>
 <tr><td><code>tzdata</code></td><td>2026f-r0</td><td>CC-PDDC</td></tr>
@@ -89,8 +89,8 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>py3.13-pip</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
 <tr><td><code>py3.13-pip-base</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
 <tr><td><code>py3.13-setuptools</code></td><td>84.2.1-r0</td><td>MIT</td></tr>
-<tr><td><code>python-3.13</code></td><td>3.13.18_git20261115-r0</td><td>PSF-2.0</td></tr>
-<tr><td><code>python-3.13-base</code></td><td>3.13.18_git20261115-r0</td><td>PSF-2.0</td></tr>
+<tr><td><code>python-3.13</code></td><td>3.13.18_git20261115-r1</td><td>PSF-2.0</td></tr>
+<tr><td><code>python-3.13-base</code></td><td>3.13.18_git20261115-r1</td><td>PSF-2.0</td></tr>
 <tr><td><code>readline</code></td><td>8.3-r4</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>sqlite-libs</code></td><td>3.54.1-r0</td><td>blessing</td></tr>
 <tr><td><code>tzdata</code></td><td>2026f-r0</td><td>CC-PDDC</td></tr>
