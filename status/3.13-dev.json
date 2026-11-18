@@ -27,17 +27,17 @@
     "x86_64": {
       "Critical": 0,
       "High": 0,
-      "Medium": 2,
+      "Medium": 5,
       "Low": 1,
-      "Negligible": 0,
+      "Negligible": 1,
       "Unknown": 0
     },
     "aarch64": {
       "Critical": 0,
       "High": 0,
-      "Medium": 2,
+      "Medium": 5,
       "Low": 1,
-      "Negligible": 0,
+      "Negligible": 1,
       "Unknown": 0
     }
   },

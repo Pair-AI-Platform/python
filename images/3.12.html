@@ -9,11 +9,15 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <p>Python 3.12.16 (runtime). Tags: <code>3.12.16-20261118.133</code>, <code>3.12</code>, <code>3.12.16</code>, <code>latest</code>. Index digest <code>sha256:1e90cb3bee3dedc05ba846a0c3c974ee44628af9347c9b2b4e0fa461eaec563c</code>.</p>
 <p><a href="#vulnerabilities">Vulnerabilities</a> · <a href="#sbom">SBOM</a> · <a href="#stig">Hardening profile</a></p>
 <h2 id="vulnerabilities">Vulnerabilities</h2>
-<p>Medium: 1 · Low: 1
+<p>Medium: 4 · Low: 1 · Negligible: 1
  <span class="muted">(Grype)</span></p>
 <table><tr><th>ID</th><th>Severity</th><th>Package</th><th>Installed</th><th>Comes from</th><th>Fixed upstream in</th><th>Architectures</th></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-115559">CVE-2026-115559</a></td><td class="Medium">Medium</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-115791">CVE-2026-115791</a></td><td class="Medium">Medium</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
 <tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-116566">CVE-2026-116566</a></td><td class="Medium">Medium</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-124249">CVE-2026-124249</a></td><td class="Medium">Medium</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
 <tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-103995">CVE-2026-103995</a></td><td class="Low">Low</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-19552">CVE-2026-19552</a></td><td class="Negligible">Negligible</td><td><code>python-3.12</code></td><td>3.12.16_git20261116-r0</td><td><code>python-3.12 3.12.16_git20261116-r0</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
 </table>
 <p class="muted">Comes from is the Wolfi package that brings the affected code into the image; a library bundled inside the toolchain, for example, comes from that package. Fixed upstream in is the version of the affected code that fixes it; the image gets the fix when the package it comes from ships that version, and the next build after that publishes it.</p>
 <h2 id="sbom">SBOM</h2><p>One SPDX SBOM per architecture, also attached to the image as a signed attestation.</p>
