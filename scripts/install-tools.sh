@@ -10,7 +10,7 @@
 set -euo pipefail
 
 # renovate: datasource=github-releases depName=chainguard-dev/apko
-APKO_VERSION=1.5.1
+APKO_VERSION=1.5.2
 # renovate: datasource=github-releases depName=chainguard-dev/melange
 MELANGE_VERSION=0.65.0
 
