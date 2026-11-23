@@ -1,8 +1,8 @@
 {
   "family": "3.10",
-  "release": "3.10.22-20261123.218",
+  "release": "3.10.22-20261123.219",
   "python": "3.10.22",
-  "digest": "sha256:479533d338b2ef63f76dc96ac1e62b9aa6efa7c73502b8d5e2a5d9a2c3a0c1db",
+  "digest": "sha256:93d415ad9d86513ef22e7f76fc509265a9bf66dc5970033a94c7893f43264f37",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,21 +53,21 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 57798033,
-      "installed": 57799580
+      "compressed": 57821900,
+      "installed": 57823447
     },
     "aarch64": {
-      "compressed": 54760704,
-      "installed": 145245778
+      "compressed": 54737531,
+      "installed": 145223282
     }
   },
   "key_packages": [
-    "ca-certificates-bundle 20261020-r0",
+    "ca-certificates-bundle 20261020-r1",
     "glibc-2.44 2.44-r24",
     "libffi 3.8.1-r0",
     "libstdc++ 16.2.0-r5",
-    "openssl-3.6-libcrypto 3.6.5-r6",
-    "openssl-3.6-libssl 3.6.5-r6",
+    "openssl-3.6-libcrypto 3.6.5-r7",
+    "openssl-3.6-libssl 3.6.5-r7",
     "openssl-4.0-libcrypto 4.0.3-r8",
     "openssl-4.0-libssl 4.0.3-r8",
     "py3-pip-wheel 26.2.2-r3",

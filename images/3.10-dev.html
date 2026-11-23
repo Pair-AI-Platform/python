@@ -5,8 +5,8 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.5rem 0}
 th,td{border:1px solid #d0d7de;padding:.35rem .6rem;text-align:left;vertical-align:top}
 th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-weight:600}
 .Medium{color:#9a6700;font-weight:600}.muted{color:#656d76}
-</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.10.22-dev-20261123.218</h1>
-<p>Python 3.10.22 (dev). Tags: <code>3.10.22-dev-20261123.218</code>, <code>3.10-dev</code>, <code>3.10.22-dev</code>. Index digest <code>sha256:ee11316eac24069579f8df271da054336caf4836fa55f52a1558fe3a7f5301ae</code>.</p>
+</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.10.22-dev-20261123.219</h1>
+<p>Python 3.10.22 (dev). Tags: <code>3.10.22-dev-20261123.219</code>, <code>3.10-dev</code>, <code>3.10.22-dev</code>. Index digest <code>sha256:769671750b8a45e13cc91b50337c1617bf7f2cbf9f67ad90d3ef1074472f5299</code>.</p>
 <p><a href="#vulnerabilities">Vulnerabilities</a> · <a href="#sbom">SBOM</a> · <a href="#stig">Hardening profile</a></p>
 <h2 id="vulnerabilities">Vulnerabilities</h2>
 <p>Medium: 1 · Low: 1
@@ -18,13 +18,13 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <p class="muted">Comes from is the Wolfi package that brings the affected code into the image; a library bundled inside the toolchain, for example, comes from that package. Fixed upstream in is the version of the affected code that fixes it; the image gets the fix when the package it comes from ships that version, and the next build after that publishes it.</p>
 <h2 id="sbom">SBOM</h2><p>One SPDX SBOM per architecture, also attached to the image as a signed attestation.</p>
 <h3 id="sbom-x86_64">x86_64: 80 packages</h3>
-<p><a href="../sbom/3.10-dev/sbom-x86_64.spdx.json">Download sbom-x86_64.spdx.json</a> · 291.7 MB compressed, 291.7 MB installed</p>
+<p><a href="../sbom/3.10-dev/sbom-x86_64.spdx.json">Download sbom-x86_64.spdx.json</a> · 291.8 MB compressed, 291.8 MB installed</p>
 <table><tr><th>Package</th><th>Version</th><th>License</th></tr>
-<tr><td><code>bash</code></td><td>5.3-r14</td><td>GPL-3.0-or-later</td></tr>
+<tr><td><code>bash</code></td><td>5.3-r15</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>binutils</code></td><td>2.47-r4</td><td>GPL-2.0</td></tr>
 <tr><td><code>build-base</code></td><td>1-r11</td><td>MIT</td></tr>
-<tr><td><code>busybox</code></td><td>1.38.0-r3</td><td>GPL-2.0-only</td></tr>
-<tr><td><code>ca-certificates-bundle</code></td><td>20261020-r0</td><td>MPL-2.0 AND MIT</td></tr>
+<tr><td><code>busybox</code></td><td>1.38.0-r4</td><td>GPL-2.0-only</td></tr>
+<tr><td><code>ca-certificates-bundle</code></td><td>20261020-r1</td><td>MPL-2.0 AND MIT</td></tr>
 <tr><td><code>curl</code></td><td>8.23.0-r4</td><td>MIT</td></tr>
 <tr><td><code>cyrus-sasl-heimdal-libs</code></td><td>2.1.28-r59</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>gcc</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
@@ -55,7 +55,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libgomp</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libidn2</code></td><td>2.3.8-r13</td><td>GPL-2.0-or-later AND LGPL-3.0-or-later</td></tr>
 <tr><td><code>libldap-2.7</code></td><td>2.7.2-r1</td><td>OLDAP-2.8</td></tr>
-<tr><td><code>libnghttp2-14</code></td><td>1.71.0-r1</td><td>MIT</td></tr>
+<tr><td><code>libnghttp2-14</code></td><td>1.71.0-r2</td><td>MIT</td></tr>
 <tr><td><code>libpcre2-8-0</code></td><td>10.49-r4</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>libpkgconf8</code></td><td>3.0.11-r1</td><td>ISC</td></tr>
 <tr><td><code>libpsl</code></td><td>0.23.3-r5</td><td>MIT</td></tr>
@@ -79,12 +79,12 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>nghttp3</code></td><td>1.19.0-r1</td><td>MIT</td></tr>
 <tr><td><code>ngtcp2</code></td><td>1.26.0-r1</td><td>MIT</td></tr>
 <tr><td><code>openssf-compiler-options</code></td><td>20250904-r12</td><td>CC-BY-4.0</td></tr>
-<tr><td><code>openssl-3.6-libcrypto</code></td><td>3.6.5-r6</td><td>Apache-2.0</td></tr>
-<tr><td><code>openssl-3.6-libssl</code></td><td>3.6.5-r6</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-3.6-libcrypto</code></td><td>3.6.5-r7</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-3.6-libssl</code></td><td>3.6.5-r7</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-dev</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-libcrypto</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-libssl</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
-<tr><td><code>openssl-provider-legacy-allowed</code></td><td>4.1.0-r0</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-provider-legacy-allowed</code></td><td>4.1.0-r1</td><td>Apache-2.0</td></tr>
 <tr><td><code>pkgconf</code></td><td>3.0.11-r1</td><td>ISC</td></tr>
 <tr><td><code>posix-cc-wrappers</code></td><td>2-r11</td><td>MIT</td></tr>
 <tr><td><code>py3-pip-wheel</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
@@ -102,13 +102,13 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>zlib</code></td><td>1.4-r0</td><td>MPL-2.0 AND MIT</td></tr>
 </table>
 <h3 id="sbom-aarch64">aarch64: 80 packages</h3>
-<p><a href="../sbom/3.10-dev/sbom-aarch64.spdx.json">Download sbom-aarch64.spdx.json</a> · 274.9 MB compressed, 794.6 MB installed</p>
+<p><a href="../sbom/3.10-dev/sbom-aarch64.spdx.json">Download sbom-aarch64.spdx.json</a> · 274.9 MB compressed, 794.5 MB installed</p>
 <table><tr><th>Package</th><th>Version</th><th>License</th></tr>
-<tr><td><code>bash</code></td><td>5.3-r14</td><td>GPL-3.0-or-later</td></tr>
+<tr><td><code>bash</code></td><td>5.3-r15</td><td>GPL-3.0-or-later</td></tr>
 <tr><td><code>binutils</code></td><td>2.47-r4</td><td>GPL-2.0</td></tr>
 <tr><td><code>build-base</code></td><td>1-r11</td><td>MIT</td></tr>
-<tr><td><code>busybox</code></td><td>1.38.0-r3</td><td>GPL-2.0-only</td></tr>
-<tr><td><code>ca-certificates-bundle</code></td><td>20261020-r0</td><td>MPL-2.0 AND MIT</td></tr>
+<tr><td><code>busybox</code></td><td>1.38.0-r4</td><td>GPL-2.0-only</td></tr>
+<tr><td><code>ca-certificates-bundle</code></td><td>20261020-r1</td><td>MPL-2.0 AND MIT</td></tr>
 <tr><td><code>curl</code></td><td>8.23.0-r4</td><td>MIT</td></tr>
 <tr><td><code>cyrus-sasl-heimdal-libs</code></td><td>2.1.28-r59</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>gcc</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
@@ -139,7 +139,7 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>libgomp</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libidn2</code></td><td>2.3.8-r13</td><td>GPL-2.0-or-later AND LGPL-3.0-or-later</td></tr>
 <tr><td><code>libldap-2.7</code></td><td>2.7.2-r1</td><td>OLDAP-2.8</td></tr>
-<tr><td><code>libnghttp2-14</code></td><td>1.71.0-r1</td><td>MIT</td></tr>
+<tr><td><code>libnghttp2-14</code></td><td>1.71.0-r2</td><td>MIT</td></tr>
 <tr><td><code>libpcre2-8-0</code></td><td>10.49-r4</td><td>BSD-3-Clause</td></tr>
 <tr><td><code>libpkgconf8</code></td><td>3.0.11-r1</td><td>ISC</td></tr>
 <tr><td><code>libpsl</code></td><td>0.23.3-r5</td><td>MIT</td></tr>
@@ -163,12 +163,12 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>nghttp3</code></td><td>1.19.0-r1</td><td>MIT</td></tr>
 <tr><td><code>ngtcp2</code></td><td>1.26.0-r1</td><td>MIT</td></tr>
 <tr><td><code>openssf-compiler-options</code></td><td>20250904-r12</td><td>CC-BY-4.0</td></tr>
-<tr><td><code>openssl-3.6-libcrypto</code></td><td>3.6.5-r6</td><td>Apache-2.0</td></tr>
-<tr><td><code>openssl-3.6-libssl</code></td><td>3.6.5-r6</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-3.6-libcrypto</code></td><td>3.6.5-r7</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-3.6-libssl</code></td><td>3.6.5-r7</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-dev</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-libcrypto</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
 <tr><td><code>openssl-4.0-libssl</code></td><td>4.0.3-r8</td><td>Apache-2.0</td></tr>
-<tr><td><code>openssl-provider-legacy-allowed</code></td><td>4.1.0-r0</td><td>Apache-2.0</td></tr>
+<tr><td><code>openssl-provider-legacy-allowed</code></td><td>4.1.0-r1</td><td>Apache-2.0</td></tr>
 <tr><td><code>pkgconf</code></td><td>3.0.11-r1</td><td>ISC</td></tr>
 <tr><td><code>posix-cc-wrappers</code></td><td>2-r11</td><td>MIT</td></tr>
 <tr><td><code>py3-pip-wheel</code></td><td>26.2.2-r3</td><td>MIT</td></tr>
