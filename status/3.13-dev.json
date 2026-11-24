@@ -1,8 +1,8 @@
 {
   "family": "3.13-dev",
-  "release": "3.13.18-dev-20261124.239",
+  "release": "3.13.18-dev-20261124.243",
   "python": "3.13.18",
-  "digest": "sha256:ea17b55e53fac702632d2aac774d2432f1c7a503f30364d9a17bb325981bf3b8",
+  "digest": "sha256:917259d82c77cdb649402fb6e6d307a16fd111a8d413bf18ac141e474c5d67db",
   "stig": {
     "x86_64": {
       "counts": {
@@ -43,31 +43,32 @@
   },
   "sbom": {
     "x86_64": {
-      "packages": 79,
-      "spdx_packages": 381
+      "packages": 80,
+      "spdx_packages": 384
     },
     "aarch64": {
-      "packages": 79,
-      "spdx_packages": 381
+      "packages": 80,
+      "spdx_packages": 384
     }
   },
   "size": {
     "x86_64": {
-      "compressed": 249804459,
-      "installed": 249806031
+      "compressed": 250672430,
+      "installed": 250674002
     },
     "aarch64": {
-      "compressed": 233936641,
-      "installed": 714922598
+      "compressed": 235041483,
+      "installed": 719417842
     }
   },
   "key_packages": [
     "binutils 2.47-r4",
     "ca-certificates-bundle 20261020-r1",
     "gcc 16.2.0-r5",
-    "git 2.56.1-r1",
+    "git 2.56.1-r2",
     "glibc-2.44 2.44-r25",
     "glibc-2.44-dev 2.44-r25",
+    "glibc-2.44-iconv-common 2.44-r25",
     "libffi 3.8.1-r0",
     "libffi-dev 3.8.1-r0",
     "libstdc++ 16.2.0-r5",
