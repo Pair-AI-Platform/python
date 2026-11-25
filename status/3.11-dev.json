@@ -1,8 +1,8 @@
 {
   "family": "3.11-dev",
-  "release": "3.11.18-dev-20261125.249",
+  "release": "3.11.18-dev-20261125.250",
   "python": "3.11.18",
-  "digest": "sha256:8e476df1d237a98e235e6b9ff5e36f9c1afa501a54157b45e38fc5c7c1b758fb",
+  "digest": "sha256:879b362401a8ede33e44a95579898bdeb1bc2f672416b1375811bb83ad4cca80",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 321647951,
-      "installed": 321649549
+      "compressed": 321675502,
+      "installed": 321677100
     },
     "aarch64": {
-      "compressed": 304152677,
-      "installed": 877272357
+      "compressed": 304168118,
+      "installed": 877280405
     }
   },
   "key_packages": [
