@@ -5,17 +5,17 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.5rem 0}
 th,td{border:1px solid #d0d7de;padding:.35rem .6rem;text-align:left;vertical-align:top}
 th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-weight:600}
 .Medium{color:#9a6700;font-weight:600}.muted{color:#656d76}
-</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.10.22-20261126.264</h1>
-<p>Python 3.10.22 (runtime). Tags: <code>3.10.22-20261126.264</code>, <code>3.10</code>, <code>3.10.22</code>. Index digest <code>sha256:0a619d02ba32b28c5e74a07808dd53b61121aecafc6087ad49384227c0c4b139</code>.</p>
+</style></head><body><h1>ghcr.io/pair-ai-platform/python:3.10.22-20261126.265</h1>
+<p>Python 3.10.22 (runtime). Tags: <code>3.10.22-20261126.265</code>, <code>3.10</code>, <code>3.10.22</code>. Index digest <code>sha256:144d0108a481472518baacd9674ad01752fae8383084428b474f881cd492d10d</code>.</p>
 <p><a href="#vulnerabilities">Vulnerabilities</a> · <a href="#sbom">SBOM</a> · <a href="#stig">Hardening profile</a></p>
 <h2 id="vulnerabilities">Vulnerabilities</h2>
 <p>Medium: 3 · Low: 1
  <span class="muted">(Grype)</span></p>
 <table><tr><th>ID</th><th>Severity</th><th>Package</th><th>Installed</th><th>Comes from</th><th>Fixed upstream in</th><th>Architectures</th></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-115819">CVE-2026-115819</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r27</td><td><code>glibc-2.44 2.44-r27</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-121758">CVE-2026-121758</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r27</td><td><code>glibc-2.44 2.44-r27</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-124024">CVE-2026-124024</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r27</td><td><code>glibc-2.44 2.44-r27</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
-<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-100290">CVE-2026-100290</a></td><td class="Low">Low</td><td><code>glibc-2.44</code></td><td>2.44-r27</td><td><code>glibc-2.44 2.44-r27</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-115819">CVE-2026-115819</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r28</td><td><code>glibc-2.44 2.44-r28</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-121758">CVE-2026-121758</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r28</td><td><code>glibc-2.44 2.44-r28</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-124024">CVE-2026-124024</a></td><td class="Medium">Medium</td><td><code>glibc-2.44</code></td><td>2.44-r28</td><td><code>glibc-2.44 2.44-r28</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
+<tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-100290">CVE-2026-100290</a></td><td class="Low">Low</td><td><code>glibc-2.44</code></td><td>2.44-r28</td><td><code>glibc-2.44 2.44-r28</code></td><td>no fix yet</td><td>x86_64, aarch64</td></tr>
 </table>
 <p class="muted">Comes from is the Wolfi package that brings the affected code into the image; a library bundled inside the toolchain, for example, comes from that package. Fixed upstream in is the version of the affected code that fixes it; the image gets the fix when the package it comes from ships that version, and the next build after that publishes it.</p>
 <h2 id="sbom">SBOM</h2><p>One SPDX SBOM per architecture, also attached to the image as a signed attestation.</p>
@@ -26,16 +26,16 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>busybox</code></td><td>1.38.0-r4</td><td>GPL-2.0-only</td></tr>
 <tr><td><code>ca-certificates-bundle</code></td><td>20261020-r1</td><td>MPL-2.0 AND MIT</td></tr>
 <tr><td><code>gdbm</code></td><td>1.26-r10</td><td>GPL-3.0-or-later</td></tr>
-<tr><td><code>glibc-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
-<tr><td><code>glibc-2.44-locale-posix</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
-<tr><td><code>ld-linux-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>glibc-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>glibc-2.44-locale-posix</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>ld-linux-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
 <tr><td><code>libbrotlicommon1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbrotlidec1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbrotlienc1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbz2-1</code></td><td>1.0.8-r31</td><td>bzip2-1.0.6</td></tr>
-<tr><td><code>libcrypt1-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>libcrypt1-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
 <tr><td><code>libexpat1</code></td><td>2.11.0-r0</td><td>MIT</td></tr>
-<tr><td><code>libffi</code></td><td>3.8.1-r0</td><td>MIT</td></tr>
+<tr><td><code>libffi</code></td><td>3.8.2-r0</td><td>MIT</td></tr>
 <tr><td><code>libgcc</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libstdc++</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libuuid</code></td><td>2.42.4-r3</td><td>GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND CC-PDDC</td></tr>
@@ -68,16 +68,16 @@ th{background:#f6f8fa}code{font-size:.85rem}.Critical,.High{color:#cf222e;font-w
 <tr><td><code>busybox</code></td><td>1.38.0-r4</td><td>GPL-2.0-only</td></tr>
 <tr><td><code>ca-certificates-bundle</code></td><td>20261020-r1</td><td>MPL-2.0 AND MIT</td></tr>
 <tr><td><code>gdbm</code></td><td>1.26-r10</td><td>GPL-3.0-or-later</td></tr>
-<tr><td><code>glibc-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
-<tr><td><code>glibc-2.44-locale-posix</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
-<tr><td><code>ld-linux-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>glibc-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>glibc-2.44-locale-posix</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>ld-linux-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
 <tr><td><code>libbrotlicommon1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbrotlidec1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbrotlienc1</code></td><td>1.2.1-r4</td><td>MIT</td></tr>
 <tr><td><code>libbz2-1</code></td><td>1.0.8-r31</td><td>bzip2-1.0.6</td></tr>
-<tr><td><code>libcrypt1-2.44</code></td><td>2.44-r27</td><td>LGPL-2.1-or-later</td></tr>
+<tr><td><code>libcrypt1-2.44</code></td><td>2.44-r28</td><td>LGPL-2.1-or-later</td></tr>
 <tr><td><code>libexpat1</code></td><td>2.11.0-r0</td><td>MIT</td></tr>
-<tr><td><code>libffi</code></td><td>3.8.1-r0</td><td>MIT</td></tr>
+<tr><td><code>libffi</code></td><td>3.8.2-r0</td><td>MIT</td></tr>
 <tr><td><code>libgcc</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libstdc++</code></td><td>16.2.0-r5</td><td>GPL-3.0-or-later WITH GCC-exception-3.1</td></tr>
 <tr><td><code>libuuid</code></td><td>2.42.4-r3</td><td>GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND CC-PDDC</td></tr>

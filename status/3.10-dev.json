@@ -1,8 +1,8 @@
 {
   "family": "3.10-dev",
-  "release": "3.10.22-dev-20261126.264",
+  "release": "3.10.22-dev-20261126.265",
   "python": "3.10.22",
-  "digest": "sha256:c15009fcca41130420e67fc60d265e7c073625a1e65130aaf3cb72ad976113ac",
+  "digest": "sha256:af285c19ebb4de63a9057138a2c2221e3f2dbd91cc41e0674918a9049861d71b",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 306999467,
-      "installed": 307001065
+      "compressed": 307039880,
+      "installed": 307041478
     },
     "aarch64": {
-      "compressed": 289619683,
-      "installed": 838269802
+      "compressed": 289573328,
+      "installed": 838314366
     }
   },
   "key_packages": [
@@ -66,11 +66,11 @@
     "ca-certificates-bundle 20261020-r1",
     "gcc 16.2.0-r5",
     "git 2.56.1-r2",
-    "glibc-2.44 2.44-r27",
-    "glibc-2.44-dev 2.44-r27",
-    "glibc-2.44-iconv-common 2.44-r27",
-    "libffi 3.8.1-r0",
-    "libffi-dev 3.8.1-r0",
+    "glibc-2.44 2.44-r28",
+    "glibc-2.44-dev 2.44-r28",
+    "glibc-2.44-iconv-common 2.44-r28",
+    "libffi 3.8.2-r0",
+    "libffi-dev 3.8.2-r0",
     "libstdc++ 16.2.0-r5",
     "libstdc++-dev 16.2.0-r5",
     "make 4.4.1-r16",

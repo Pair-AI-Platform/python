@@ -1,8 +1,8 @@
 {
   "family": "3.12-dev",
-  "release": "3.12.16-dev-20261125.259",
+  "release": "3.12.16-dev-20261126.265",
   "python": "3.12.16",
-  "digest": "sha256:5d473aec8d66917dd1dd812c70ee9f2f01a30611d7fa42fb3f87a6b648d3eb04",
+  "digest": "sha256:ebbe22503e1fd5c0b4661cc9c04bd84bb19ccffa75703a8a5ed6c8ae0be954e8",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 262902592,
-      "installed": 262904153
+      "compressed": 262864500,
+      "installed": 262866061
     },
     "aarch64": {
-      "compressed": 246989210,
-      "installed": 757059033
+      "compressed": 247017957,
+      "installed": 757060149
     }
   },
   "key_packages": [
@@ -66,11 +66,11 @@
     "ca-certificates-bundle 20261020-r1",
     "gcc 16.2.0-r5",
     "git 2.56.1-r2",
-    "glibc-2.44 2.44-r27",
-    "glibc-2.44-dev 2.44-r27",
-    "glibc-2.44-iconv-common 2.44-r27",
-    "libffi 3.8.1-r0",
-    "libffi-dev 3.8.1-r0",
+    "glibc-2.44 2.44-r28",
+    "glibc-2.44-dev 2.44-r28",
+    "glibc-2.44-iconv-common 2.44-r28",
+    "libffi 3.8.2-r0",
+    "libffi-dev 3.8.2-r0",
     "libstdc++ 16.2.0-r5",
     "libstdc++-dev 16.2.0-r5",
     "make 4.4.1-r16",
