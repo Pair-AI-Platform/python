@@ -1,8 +1,8 @@
 {
   "family": "3.10",
-  "release": "3.10.22-20261128.294",
+  "release": "3.10.22-20261128.295",
   "python": "3.10.22",
-  "digest": "sha256:2faeec408079f09491934b4881bfbae298c3d602b5e5581d1b39f6abe37d3c4d",
+  "digest": "sha256:ef05f24436eba9ff7c59381aee99698d5082d881538f5dc1d228da87e0ebc186",
   "stig": {
     "x86_64": {
       "counts": {
@@ -27,16 +27,16 @@
     "x86_64": {
       "Critical": 0,
       "High": 0,
-      "Medium": 3,
-      "Low": 2,
+      "Medium": 2,
+      "Low": 1,
       "Negligible": 0,
       "Unknown": 0
     },
     "aarch64": {
       "Critical": 0,
       "High": 0,
-      "Medium": 3,
-      "Low": 2,
+      "Medium": 2,
+      "Low": 1,
       "Negligible": 0,
       "Unknown": 0
     }
@@ -53,12 +53,12 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 58136041,
-      "installed": 58137588
+      "compressed": 58123147,
+      "installed": 58124694
     },
     "aarch64": {
-      "compressed": 55021005,
-      "installed": 146237170
+      "compressed": 55079128,
+      "installed": 146227226
     }
   },
   "key_packages": [
