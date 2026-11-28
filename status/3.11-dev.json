@@ -1,8 +1,8 @@
 {
   "family": "3.11-dev",
-  "release": "3.11.18-dev-20261128.290",
+  "release": "3.11.18-dev-20261128.291",
   "python": "3.11.18",
-  "digest": "sha256:52c9cc7ca46bd97612fdf271e4ae6ab7dbb6ac6df9d51164287cee57541ac159",
+  "digest": "sha256:21820383449021c2d838510b519bbced545752131cfc155f6489dcdb2bcf4558",
   "stig": {
     "x86_64": {
       "counts": {
@@ -53,19 +53,19 @@
   },
   "size": {
     "x86_64": {
-      "compressed": 321704162,
-      "installed": 321705760
+      "compressed": 321717121,
+      "installed": 321718719
     },
     "aarch64": {
-      "compressed": 304147839,
-      "installed": 877297969
+      "compressed": 304151488,
+      "installed": 877298673
     }
   },
   "key_packages": [
     "binutils 2.47-r4",
     "ca-certificates-bundle 20261020-r1",
     "gcc 16.2.0-r5",
-    "git 2.56.1-r2",
+    "git 2.56.1-r3",
     "glibc-2.44 2.44-r30",
     "glibc-2.44-dev 2.44-r30",
     "glibc-2.44-iconv-common 2.44-r30",
